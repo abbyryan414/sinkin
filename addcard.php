@@ -21,17 +21,21 @@
 </head>
 <body>
     <h1>Add a card:</h1>
-    <form method="post" action="adddeckcheck.php">
+    <form method="post">
         <input name="Deck_or_card_title"placeholder="card name:" value="<?php echo $cardtitle ?>" type="text">
         <input name="cardinfo"placeholder="card info:" value="<?php echo $cardinfo ?>"type="text">
         <select name="deck">
+                <?php 
                     
-                
+                    echo(' <option value="male">male</option>')
+                ?>
+
+
                     <option value="male">male</option>
 					<option value="female">female</option>
 					<option value="other">other</option>
 				</select>
-        <button>confirm<button>
+        <button>confirm</button>
     </form>
     
 </body>
@@ -42,7 +46,7 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "database";
+$dbname = "user_name";
 
 // Create connection 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -51,7 +55,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 //insert data to table
-$sql = "INSERT INTO users_cards (Username,Currentpath,Is_card,Deck_or_card_title,Card_info,Created_date,Study_date,Reps)
+$sql = "INSERT INTO users_cards (username,current_path,is_card,deck_or_card_title,card_info,created_date,study_date,reps)
 VALUES ('$username','$currentpath/$deck','TRUE','$Deck_or_card_title','$cardinfo','how to do created date','how to do study date',0)";
 
 
