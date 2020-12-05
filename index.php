@@ -13,7 +13,7 @@
 
 <h1 id="welcome-msg"></h1>
 <button onclick="toDictionary()">To Dictionary</button>
-<button onclick="addDeck()">To AddCard</button>
+<button onclick="addDeck()">To AddDeck</button>
 <form action="" method="POST">
   <button type="submit" id="back_btn" name="back_btn">Back 1 Directory</button>
 </form>
@@ -26,7 +26,7 @@
 
  
 
-  $username = "Joseph";
+  $username = "ryan1";
   $current_path = $username . "/";
   // $_SESSION['current_path'] = "Joseph/";
   
