@@ -19,6 +19,9 @@
         <input name="Deck_or_card_title" placeholder="deck name:" type="text">
         <button name="confirm-btn">confirm</button>
     </form>
+    <form action="home.php">
+                        <button>return to home page</button>
+    </form>
     
 </body>
 </html>
@@ -34,27 +37,31 @@
         $password = "";
         $dbname = "fake_online_sinkin";
         $date = date('Y-m-d H:i:s');
-
         // Create connection 
         $conn = new mysqli($servername, $username, $password, $dbname);
         // Check connection
         if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
         }
-        //insert data to table
-        $sql = "INSERT INTO users_info (Username,Currentpath,Is_card,Deck_or_card_title,Card_info,Created_date,Study_date,Reps)
-        VALUES ('$loginusername','$currentpath',FALSE,'$Deck_or_card_title','null','$date','2020-01-01 00:00:00','null')";
-        
-        if ($conn->query($sql) === TRUE) {
-        echo "<br>". "New deck added";
-        } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        if (preg_match("(/)","$Deck_or_card_title")){
+            echo "Deck name cannot include / ";
+            }elseif (strlen($Deck_or_card_title) > 0 && strlen(trim($Deck_or_card_title)) == 0){
+                echo "Deck name cannot be blank";
+            }elseif (preg_match("(^[NULL]{0}$)","$Deck_or_card_title")){
+                    echo "Deck name cannot be blank";
+            }else{
+            //insert data to table
+            $sql = "INSERT INTO users_info (Username,Currentpath,Is_card,Deck_or_card_title,Card_info,Created_date,Study_date,Reps)
+            VALUES ('$loginusername','$currentpath',FALSE,'$Deck_or_card_title','null','$date','2020-01-01 00:00:00','null')";
+            
+            if ($conn->query($sql) === TRUE) {
+            echo "<br>". "New deck added";
+            } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
 
+            }
+           
         }
-        echo(' <form action="home.php">
-                    <button>return to home page</button>
-                </form>');
-       
                 
     }
 
