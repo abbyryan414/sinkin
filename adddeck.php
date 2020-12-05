@@ -35,7 +35,7 @@
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "fake_online_sinkin";
+        $dbname = "database";
         $date = date('Y-m-d H:i:s');
         // Create connection 
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -51,8 +51,8 @@
                     echo "Deck name cannot be blank";
             }else{
             //insert data to table
-            $sql = "INSERT INTO users_info (Username,Currentpath,Is_card,Deck_or_card_title,Card_info,Created_date,Study_date,Reps)
-            VALUES ('$loginusername','$currentpath',FALSE,'$Deck_or_card_title','null','$date','2020-01-01 00:00:00','null')";
+            $sql = "INSERT INTO users_cards (Username,Currentpath,Is_card,Deck_or_card_title,Card_info,Created_date,Study_date,Reps)
+            VALUES ('$loginusername','$currentpath',FALSE,'$Deck_or_card_title','null','$date','2020-01-01 00:00:00','0')";
             
             if ($conn->query($sql) === TRUE) {
             echo "<br>". "New deck added";
