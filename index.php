@@ -14,8 +14,10 @@
 <h1 id="welcome-msg"></h1>
 <button onclick="toDictionary()">To Dictionary</button>
 <button onclick="addDeck()">To AddDeck</button>
+<button onclick="addCard()">To AddCard</button>
 <form action="" method="POST">
   <button type="submit" id="back_btn" name="back_btn">Back 1 Directory</button>
+  <button type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
 </form>
 
 
@@ -24,11 +26,9 @@
 
   session_start();
 
- 
-
+  //set default username 
   $username = "ryan1";
   $current_path = $username . "/";
-  // $_SESSION['current_path'] = "Joseph/";
   
   //receive current path from other files(eg: changeDirectory.php)
   if (isset($_SESSION['current_path'])) {
@@ -36,38 +36,31 @@
 
   }
 
+ 
   $_SESSION['username'] = $username;
   $_SESSION['current_path'] = $current_path;
+
+
 
   echo "<br>Username: ".$username."<br>";
   echo "Current Path: ".$current_path."<br>";
 
+  require_once("phpFiles/db_handler.php");
+  
 
-
-  $servername = "localhost";
-  $uid = "root";
-  $password = "";
-  $dbname = "database";
-
-  // Create connection
-  $conn = new mysqli($servername, $uid, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
 
   //select all decks(Is_card value: 0) where username and current path matches
-  $sql = "SELECT * FROM users_cards WHERE Username=? AND Currentpath=? AND Is_card='0'"; // SQL with parameters
+  $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath=? AND is_card='0'"; // SQL with parameters
   $stmt = $conn->prepare($sql); 
   $stmt->bind_param("ss", $username, $current_path);
   $stmt->execute();
   $result = $stmt->get_result(); // get the mysqli result
  
-
+  // If there's decks in current path, turn them to buttons
   if ($result->num_rows > 0) {
     echo "No of Results: ".($result->num_rows)."<br>";
     while ($row = $result->fetch_assoc()) {
-      $deck_name = $row['Deck_or_card_title'];
+      $deck_name = $row['deck_or_card_title'];
 
       //auto generate button for decks
       echo <<<EOT
@@ -83,18 +76,17 @@
 
 <script>
 
-//Hide back_btn if currentpath is root(eg: Marco/)
+// Hide back_btn if currentpath is root(eg: Marco/)
 // and doesn't contain folders(eg:Marco/Deck1/)
 var current_path = "<?php echo $current_path;?>";
 var username = "<?php echo $username;?>" + "/";
 if (username==current_path) {
   $("#back_btn").hide();
+  $("#delete_deck_btn").hide();
 }
 
 
-
-
-
+//Go to respective pages if respective buttons are clicked
 function toDictionary() {
   window.location.href = "dictionary.php";
 }
@@ -104,6 +96,13 @@ function addDeck() {
   
 }
 
+function addCard() {
+  window.location.href = "addcard.php";
+  
+}
+
+// Go to changeDirectory.php to change the current path if deck button is clicked
+// and it'll refresh the page to search for decks in new path
 function deck_clicked(deck_name) {
   if (deck_name === undefined) {
     deck_name = "default deck name";
@@ -135,43 +134,39 @@ function deck_clicked(deck_name) {
 
 <?php
 
-// This function inputs a string, and goes back 1 directory
-// Eg: changes Marco/Deck1/Deck3/ to Marco/Deck1/
-// MUST HAVE "/" in the end, eg: can't have Marco/Deck1
-function back_one_dir($current_dir) {
-  //remove the last character of the string
-  $current_path_trimmed = substr($current_dir, 0, -1);
-
-  //Reverse the order of the string
-  $current_path_reversed = "";
-  $len = strlen($current_path_trimmed);
-  for($i=$len; $i > 0; $i--){
-    $current_path_reversed .= $current_path_trimmed[$i-1];
-  }
-
-  //echo $current_path_reversed;
-
-  //removes everything before(and including) the first "/"
-  $out = substr(strstr($current_path_reversed, '/'), strlen('/'));
-  
-  
-  //Reverse the order of the string
-  $current_path_reversed = "";
-  $len = strlen($out);
-  for($i=$len; $i > 0; $i--){
-    $current_path_reversed .= $out[$i-1];
-  }
-  $new_path = $current_path_reversed."/";
-  return $new_path;
-}
+require("phpFiles/functions_library.php");
 
 
-//if back btn is pressed
+
+
+//if back btn is pressed, go back one directory, and refresh page
 if(array_key_exists('back_btn', $_POST)) { 
   $_SESSION['current_path'] = back_one_dir($current_path);
   header("Refresh:0");
 }
 
+
+//if delete_deck btn is pressed, go back one directory
+// (eg: Marco/Deck1/ -> Marco/)
+// Also changes the current_path global variable
+if(array_key_exists('delete_deck_btn', $_POST)) {
+  $current_path_minus_one = back_one_dir($current_path);
+
+//gets the deck name
+  $deck_to_delete = getLastDir($current_path);
+  
+  $sql = "DELETE FROM users_cards WHERE username='$username' AND (deck_or_card_title='$deck_to_delete' OR currentpath LIKE '%$current_path%')"; // SQL with parameters
+  if (mysqli_query($conn, $sql)) {
+    echo "Record deleted successfully";
+    echo $current_path_minus_one;
+    echo $current_path;
+    $_SESSION['current_path'] = back_one_dir($current_path);
+    header("Refresh:0");
+  } else {
+    echo "Error deleting record: " . mysqli_error($conn);
+  }
+   
+}
 
 ?>
 
