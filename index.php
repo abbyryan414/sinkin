@@ -87,6 +87,8 @@ function get_time_zone_offset( ) {
   return parseInt(-current_date.getTimezoneOffset() / 60);
 }
 
+update_time();
+
 function update_time() {
   var time_zone_offset = get_time_zone_offset();
   
