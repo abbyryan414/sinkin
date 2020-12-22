@@ -14,10 +14,11 @@
 <h1 id="welcome-msg"></h1>
 <button onclick="toDictionary()">To Dictionary</button>
 <button onclick="addDeck()">To AddDeck</button>
-<button onclick="addCard()">To AddCard</button>
+<button onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
 <form action="" method="POST">
   <button type="submit" id="back_btn" name="back_btn">Back 1 Directory</button>
   <button type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
+  <button type="submit" id="add_card_btn" name="add_card_btn">To Add Card</button>
 </form>
 
 
@@ -25,6 +26,8 @@
 <?php
 
   session_start();
+
+
 
   //set default username 
   $username = "ryan1";
@@ -76,6 +79,33 @@
 
 <script>
 
+//The function returns the time zone offset, 
+//for example HK is GMT +8,
+// so it'll return 8
+function get_time_zone_offset( ) {
+  var current_date = new Date();
+  return parseInt(-current_date.getTimezoneOffset() / 60);
+}
+
+function update_time() {
+  var time_zone_offset = get_time_zone_offset();
+  
+  //send time_zone_offset to php, do stuff so that local time 
+  //can be accessed with $_SESSION['local_time] in any page
+  $.ajax({
+    url: 'phpFiles/get_time_zone.php',
+    method: 'POST',
+    dataType: 'text',
+    data: {
+        time_zone_offset: time_zone_offset
+    }               
+  }).done(function(returnedData){
+      console.log(returnedData);
+  })
+}
+
+
+
 // Hide back_btn if currentpath is root(eg: Marco/)
 // and doesn't contain folders(eg:Marco/Deck1/)
 var current_path = "<?php echo $current_path;?>";
@@ -83,6 +113,8 @@ var username = "<?php echo $username;?>" + "/";
 if (username==current_path) {
   $("#back_btn").hide();
   $("#delete_deck_btn").hide();
+  $("#add_card_btn").hide();
+
 }
 
 
@@ -101,6 +133,10 @@ function addCard() {
   
 }
 
+function studyCard() {
+  window.location.href = "studyCard.php";
+}
+
 // Go to changeDirectory.php to change the current path if deck button is clicked
 // and it'll refresh the page to search for decks in new path
 function deck_clicked(deck_name) {
@@ -117,7 +153,7 @@ function deck_clicked(deck_name) {
         current_path: "<?php echo $current_path?>"
     }               
   }).done(function(returnedData){
-      console.log(returnedData);
+      console.log(returnedData);// console print returnedData(php echoed stuff)
       location.reload();
       //window.location.href="phpFiles/editYTLink.php"; 
   })
@@ -137,6 +173,12 @@ function deck_clicked(deck_name) {
 require("phpFiles/functions_library.php");
 
 
+//if add_card_btn is pressed, go back one directory, and refresh page
+if(array_key_exists('add_card_btn', $_POST)) { 
+  session_start();
+  $_SESSION['selected_deck'] = getLastDir($current_path);
+  header("Location:addcard.php");
+}
 
 
 //if back btn is pressed, go back one directory, and refresh page

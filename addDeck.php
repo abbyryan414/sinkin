@@ -11,8 +11,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>add a deck</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" 
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
+  crossorigin="anonymous"></script>
 </head>
 <body>
+
 <h1>Add a deck:</h1>
 <form method="post">
     <input name="deck_or_card_title" placeholder="deck name:" type="text">
@@ -33,8 +37,8 @@ if(array_key_exists('confirm-btn', $_POST)) {
   $deck_or_card_title=$_POST['deck_or_card_title'];
     
     
-    
-  $date = date('Y-m-d H:i:s');
+  require("phpFiles/functions_library.php");
+  $local_time = getLocalTime($_SESSION['gmt_int']);
     
 
   $value = "SELECT* FROM users_cards WHERE username= '$login_username' AND deck_or_card_title = '$deck_or_card_title'";
@@ -54,7 +58,7 @@ if(array_key_exists('confirm-btn', $_POST)) {
       }else{
       //insert data to table
       $sql = "INSERT INTO users_cards (username,currentpath,is_card,deck_or_card_title,card_info,created_date,study_date,reps)
-      VALUES ('$login_username','$current_path',FALSE,'$deck_or_card_title','null','$date','2020-01-01 00:00:00','0')";
+      VALUES ('$login_username','$current_path',FALSE,'$deck_or_card_title','null','$local_time','2020-01-01 00:00:00','0')";
       
       if ($conn->query($sql) === TRUE) {
       echo "<br>". "New deck added";

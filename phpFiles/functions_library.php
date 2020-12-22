@@ -59,3 +59,13 @@ function getLastDir($current_dir) {
   return $current_path_reversed;
 }
 
+
+function getLocalTime($gmt_int) {
+  //is the time at GMT +0
+  $gmt_date = gmdate('Y-m-d H:i:s');
+
+  //change $gmt_date to local time
+  $gmt_date = date('Y-m-d H:i:s', strtotime($gmt_date . '+'.$gmt_int.'hour'));
+  
+  return $gmt_date;
+}
