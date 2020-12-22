@@ -75,6 +75,7 @@
 
         </select>
         <script>
+          function button_clicked() {
             $.ajax({
               url: 'phpFiles/card_button.php',
               method: 'POST',
@@ -88,12 +89,14 @@
               }  
                            
             }).done(function(returnedData){
-      console.log("testing");// console print returnedData(php echoed stuff)
-      //location.reload();
-      //window.location.href="phpFiles/editYTLink.php"; 
-      })
+              console.log("testing");// console print returnedData(php echoed stuff)
+              //location.reload();
+              //window.location.href="phpFiles/editYTLink.php"; 
+            })
+
+          }
         </script>
-        <button onclick="confirm_funch()">confirm</button>
+        <button onclick="button_clicked()">confirm</button>
         
           
       
