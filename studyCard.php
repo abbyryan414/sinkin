@@ -33,9 +33,13 @@ echo "Current Path: ".$current_path."<br>";
 require_once("phpFiles/db_handler.php");
 //select all cards in the deck the user is currently in
 
-$sql = "SELECT * FROM users_cards WHERE username=? AND currentpath=? AND is_card='1' AND study_date < '$local_time'"; // SQL with parameters
+//select all cards inside the deck, even its subdecks, 
+//for example there's deck2 and deck2/deck2-1
+//if user clicks study_card_btn in deck2, deck2/deck2-1 cards will
+//also be shown
+$sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time'"; // SQL with parameters
 $stmt = $conn->prepare($sql); 
-$stmt->bind_param("ss", $username, $current_path);
+$stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result(); // get the mysqli result
 
