@@ -126,7 +126,7 @@ function toDictionary() {
 }
 
 function addDeck() {
-  window.location.href = "addDeck.php";
+  window.location.href = "adddeck.php";
   
 }
 
@@ -199,7 +199,7 @@ if(array_key_exists('delete_deck_btn', $_POST)) {
 //gets the deck name
   $deck_to_delete = getLastDir($current_path);
   
-  $sql = "DELETE FROM users_cards WHERE username='$username' AND (deck_or_card_title='$deck_to_delete' OR currentpath LIKE '%$current_path%')"; // SQL with parameters
+  $sql = "DELETE FROM users_cards WHERE username='$username' AND (deck_or_card_title='$deck_to_delete' OR currentpath LIKE '$current_path%')"; // SQL with parameters
   if (mysqli_query($conn, $sql)) {
     echo "Record deleted successfully";
     echo $current_path_minus_one;

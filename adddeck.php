@@ -19,8 +19,8 @@
         <input name="Deck_or_card_title" placeholder="deck name:" type="text">
         <button name="confirm-btn">confirm</button>
     </form>
-    <form action="home.php">
-                        <button>return to home page</button>
+    <form action="index.php">
+        <button>return to home page</button>
     </form>
     
 </body>
@@ -49,9 +49,8 @@
             echo "Deck name cannot be blank";
           }elseif (preg_match("(^[NULL]{0}$)","$Deck_or_card_title")){
             echo "Deck name cannot be blank";
-          } else if ($Deck_or_card_title == $loginusername) {
-            echo "Deck name cannot be the same as your username";
           }else{
+
           //insert data to table
           $sql = "INSERT INTO users_cards (Username,Currentpath,Is_card,Deck_or_card_title,Card_info,Created_date,Study_date,Reps)
           VALUES ('$loginusername','$currentpath',FALSE,'$Deck_or_card_title','null','$date','2020-01-01 00:00:00','0')";
@@ -60,9 +59,7 @@
           echo "<br>". "New deck added";
           } else {
           echo "Error: " . $sql . "<br>" . $conn->error;
-
           }
-           
         }
                 
     }

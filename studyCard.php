@@ -56,7 +56,7 @@ function query_and_fetch_result($conn, $sql, $username) {
 */
 
 //check if there are 1 rep cards (cards that were wrong on first try) that are due 
-$sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='1'"; // SQL with parameters
+$sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='1'"; // SQL with parameters
 $result = query_and_fetch_result($conn, $sql, $username);
 
 if ($result->num_rows > 0) {
@@ -75,7 +75,7 @@ if ($result->num_rows > 0) {
 } else { //zero results
 
   //check if there are 2 reps cards (cards that were correct 1 time) that are due 
-  $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='2' LIMIT 1"; // SQL with parameters
+  $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='2' LIMIT 1"; // SQL with parameters
   $result = query_and_fetch_result($conn, $sql, $username);
 
   if ($result->num_rows > 0) {
@@ -85,7 +85,7 @@ if ($result->num_rows > 0) {
   } else { //zero results
 
     //check if there are 0 reps cards (totally new cards) that are due 
-    $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='0' LIMIT 1"; // SQL with parameters
+    $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='0' LIMIT 1"; // SQL with parameters
     $result = query_and_fetch_result($conn, $sql, $username);
 
     if ($result->num_rows > 0) {
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
       }
     } else { //zero results
       //check if there are any cards that are due 
-      $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time'  LIMIT 1"; // SQL with parameters
+      $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '$current_path%' AND is_card='1' AND study_date < '$local_time'  LIMIT 1"; // SQL with parameters
       $result = query_and_fetch_result($conn, $sql, $username);
 
       if ($result->num_rows > 0) {
@@ -104,7 +104,7 @@ if ($result->num_rows > 0) {
       } else { //zero results
 
         //check if there are any 1 rep cards that are NOT YET due
-        $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND reps='1' LIMIT 1"; // SQL with parameters
+        $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '$current_path%' AND is_card='1' AND reps='1' LIMIT 1"; // SQL with parameters
         $result = query_and_fetch_result($conn, $sql, $username);
 
         if ($result->num_rows > 0) {
@@ -113,7 +113,7 @@ if ($result->num_rows > 0) {
           }
         } else { //zero results
           //check if there are any 2 rep cards that are NOT YET due
-          $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND reps='2' LIMIT 1"; // SQL with parameters
+          $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '$current_path%' AND is_card='1' AND reps='2' LIMIT 1"; // SQL with parameters
           $result = query_and_fetch_result($conn, $sql, $username);
 
           if ($result->num_rows > 0) {
