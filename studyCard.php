@@ -33,121 +33,103 @@ echo "Current Path: ".$current_path."<br>";
 require_once("phpFiles/db_handler.php");
 //select all cards in the deck the user is currently in
 
-//select all cards inside the deck, even its subdecks, 
+function query_and_fetch_result($conn, $sql, $username) {
+  $stmt = $conn->prepare($sql); 
+  $stmt->bind_param("s", $username);
+  $stmt->execute();
+  $result = $stmt->get_result(); // get the mysqli result
+  return $result;
+}
+
+//select cards inside the deck, even its subdecks, 
 //for example there's deck2 and deck2/deck2-1
 //if user clicks study_card_btn in deck2, deck2/deck2-1 cards will
 //also be shown
 
-//select cards with 0-2 reps first
-$sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps<'3'"; // SQL with parameters
-$stmt = $conn->prepare($sql); 
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result(); // get the mysqli result
+/*the cards will be shown one by one, in this order:
+1. 1 reps (cards that were wrong on first try) due cards
+2. 2 reps (cards that were correct 1 time) due cards
+3. 0 reps due cards
+4. All due cards
+5. 1 reps not due cards
+6. 2 reps not due cards
+*/
 
-//array storing all the cards and info with 2-3 reps
-$new_cards_array = array();
+//check if there are 1 rep cards (cards that were wrong on first try) that are due 
+$sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='1'"; // SQL with parameters
+$result = query_and_fetch_result($conn, $sql, $username);
 
-//this array is for storing all the information of ONE card, then
-// add itself to the $new_cards_array, and empty itself
-$array = array(); 
-
-// If there's decks in current path, turn them to buttons
 if ($result->num_rows > 0) {
-  echo "No of Results: ".($result->num_rows)."<br>";
-  
+  $num_of_rows = $result->num_rows;
+  $random_int = rand(1,$num_of_rows);
+  $counter = $num_of_rows - $random_int;
+  echo $num_of_rows."<br>";
+  echo $random_int."<br>";
+
   while ($row = $result->fetch_assoc()) {
-    //echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", "."<br>";
-    
-    //first push the information for each individual card into $array
-    array_push($array, $row['deck_or_card_title'], $row['card_info'], $row['reps'], $row['created_date']);
-  
-    //then pust $array into $new_cards_array, so that $new_cards_array will be an 3d array storing all cards infomation
-    array_push($new_cards_array, $array);
-
-     //empty array before pushing it to $new_cards_array again in the loop
-     $array = [];
+    if ($counter == 0) {
+      echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", ".$row['study_date'].", "."<br>";
+    }
+    $counter = $counter - 1;
   }
+} else { //zero results
 
-  //randomize the order of the array
-  shuffle($new_cards_array);
+  //check if there are 2 reps cards (cards that were correct 1 time) that are due 
+  $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='2' LIMIT 1"; // SQL with parameters
+  $result = query_and_fetch_result($conn, $sql, $username);
 
-  //then rearrange the order, order by reps
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+    echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", ".$row['study_date'].", "."<br>";
+    }
+  } else { //zero results
 
-  echo "new_cards_array:";
-  print "<pre>";
-  print_r($new_cards_array);
-  print "</pre>";
+    //check if there are 0 reps cards (totally new cards) that are due 
+    $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps='0' LIMIT 1"; // SQL with parameters
+    $result = query_and_fetch_result($conn, $sql, $username);
 
-} else {
-  echo "new_cards_array:";
-  echo "0 results";
-}
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+      echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", ".$row['study_date'].", "."<br>";
+      }
+    } else { //zero results
+      //check if there are any cards that are due 
+      $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time'  LIMIT 1"; // SQL with parameters
+      $result = query_and_fetch_result($conn, $sql, $username);
 
+      if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+        echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", ".$row['study_date'].", "."<br>";
+        }
+      } else { //zero results
 
-//select cards which are not 0-2 reps 
-$sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND study_date < '$local_time' AND reps>'2'"; // SQL with parameters
-$stmt = $conn->prepare($sql); 
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result(); // get the mysqli result
+        //check if there are any 1 rep cards that are NOT YET due
+        $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND reps='1' LIMIT 1"; // SQL with parameters
+        $result = query_and_fetch_result($conn, $sql, $username);
 
-//array storing all the cards and info with 3+ (not 0-2) reps
-$cards_array = array();
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+          echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", ".$row['study_date'].", "."<br>";
+          }
+        } else { //zero results
+          //check if there are any 2 rep cards that are NOT YET due
+          $sql = "SELECT * FROM users_cards WHERE username=? AND currentpath LIKE '%$current_path%' AND is_card='1' AND reps='2' LIMIT 1"; // SQL with parameters
+          $result = query_and_fetch_result($conn, $sql, $username);
 
-//this array is for storing all the information of ONE card, then
-// add itself to the $cards_array, and empty itself
-$array = array(); 
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+            echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", ".$row['study_date'].", "."<br>";
+            }
+          } else { //zero results
+            echo "Congrats! No more cards to study for today. Time to chill :)";
+          }
+        } 
 
-// If there's decks in current path, turn them to buttons
-if ($result->num_rows > 0) {
-  echo "No of Results: ".($result->num_rows)."<br>";
-  
-  while ($row = $result->fetch_assoc()) {
-    //echo $row['deck_or_card_title'].", ".$row['card_info'].", ".$row['reps'].", ".$row['created_date'].", "."<br>";
-    
-    //first push the information for each individual card into $array
-    array_push($array, $row['deck_or_card_title'], $row['card_info'], $row['reps'], $row['created_date']);
-  
-    //then pust $array into $cards_array, so that $cards_array will be an 3d array storing all cards infomation
-    array_push($cards_array, $array);
-
-     //empty array before pushing it to $cards_array again in the loop
-     $array = [];
+        
+      }
+    }
   }
-
-  //randomize the order of the array
-  shuffle($cards_array);
-
-  //then rearrange the order, order by reps
-
-  echo "cards_array:<br>";
-  print "<pre>";
-  print_r($cards_array);
-  print "</pre>";
-
-} else {
-  echo "cards_array:<br>";
-  echo "0 results";
 }
-
-
-$result_array = array_merge($new_cards_array, $cards_array);
-
-echo "<br>result_array:";
-print "<pre>";
-print_r($result_array);
-print "</pre>";
-
-
-
-
-
-
-
-
-
-
 
 
 
