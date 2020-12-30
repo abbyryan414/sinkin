@@ -69,3 +69,44 @@ function getLocalTime($gmt_int) {
   
   return $gmt_date;
 }
+
+
+//This function inputs the rep value of the card (eg: 3),
+//and outputs the interval (eg: 2)
+function get_interval($rep) {
+  if ($rep > 20) {
+    $rep = 20;
+  }
+  $fibonacci = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765];
+  $interval = $fibonacci[$rep];
+  return $interval;
+}
+
+function new_study_date($date_string, $rep) {
+
+
+  $local_time_dt = new DateTime($date_string);
+  $local_time_dt_string = $local_time_dt->format('Y/m/d H:i:s');
+
+  if ($rep == 0) {
+    //add 10 minutes 
+    return $local_time_dt->add(new DateInterval('PT10M'));
+  } else {
+    //Local Date Time to Local Time string
+    $local_time_string = $local_time_dt->format('H:i:s');
+
+    if (strtotime($local_time_string) < strtotime("3AM")) {
+      //same date, 3AM
+      $local_time_dt->setTime(03, 00);
+    } else {
+      //+1 day, 3AM
+      $local_time_dt->setTime(03, 00);
+      $local_time_dt->add(new DateInterval('P1D'));
+    }
+    $num_of_days_to_add = get_interval($rep) - 1;
+    return $local_time_dt->add(new DateInterval('P'.$num_of_days_to_add.'D'));
+  }
+
+  
+}
+
