@@ -68,27 +68,38 @@ function getLocalTime($gmt_int) {
   $gmt_date = date('Y-m-d H:i:s', strtotime($gmt_date . '+'.$gmt_int.'hour'));
   
   return $gmt_date;
+  // return ('2021-01-20 08:40:01');
 }
 
 
 //This function inputs the rep value of the card (eg: 3),
 //and outputs the interval (eg: 2)
-function get_interval($rep) {
-  if ($rep > 20) {
-    $rep = 20;
+function get_interval($reps) {
+  if ($reps > 20) {
+    $reps = 20;
   }
-  $fibonacci = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765];
-  $interval = $fibonacci[$rep];
+
+  //$fibonacci[1] is 1 for good reason, don't change it
+  $fibonacci = [0, 1, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765];
+  $interval = $fibonacci[$reps];
   return $interval;
 }
 
-function new_study_date($date_string, $rep) {
+//inputs string of local_time and reps value of card, 
+// outputs date(not string) of new study date
+function new_study_date($reps) {
 
+  $date_string = getLocalTime($_SESSION['gmt_int']);
 
   $local_time_dt = new DateTime($date_string);
   $local_time_dt_string = $local_time_dt->format('Y/m/d H:i:s');
 
-  if ($rep == 0) {
+  //-1 means he got card wrong
+  if ($reps == -1) {
+    //add 1 minute if got answer wrong
+    return $local_time_dt->add(new DateInterval('PT1M'));
+
+  } else if (($reps == 0) or ($reps == 1)) {
     //add 10 minutes 
     return $local_time_dt->add(new DateInterval('PT10M'));
   } else {
@@ -103,10 +114,37 @@ function new_study_date($date_string, $rep) {
       $local_time_dt->setTime(03, 00);
       $local_time_dt->add(new DateInterval('P1D'));
     }
-    $num_of_days_to_add = get_interval($rep) - 1;
+    $num_of_days_to_add = get_interval($reps) - 1;
     return $local_time_dt->add(new DateInterval('P'.$num_of_days_to_add.'D'));
   }
 
-  
+}
+
+
+// this functions inputs the reps value of the card
+// and outputs next interval if correct button clicked)
+function new_study_date_interval($reps, $last_rep) {
+  $date_string = getLocalTime($_SESSION['gmt_int']);
+
+  $local_time_dt = new DateTime($date_string);
+  $local_time_dt_string = $local_time_dt->format('Y/m/d H:i:s');
+
+  if ($reps == 0) {
+    //add 10 minutes 
+    return "+ 10 minutes";
+  } else if ($reps == 1) {
+
+    if ($last_rep > $reps) {
+      $num_of_days_to_add = get_interval($last_rep);
+      return "+ ".$num_of_days_to_add." days";
+    } else {
+      return "+ 10 minutes";
+    }
+    
+  } else {
+    $local_time_string = $local_time_dt->format('H:i:s');
+    $num_of_days_to_add = get_interval($reps);
+    return "+ ".$num_of_days_to_add." days";
+  }
 }
 

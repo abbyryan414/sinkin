@@ -47,6 +47,7 @@
     <form method="post">
         <input id="deck_or_card_title" name="deck_or_card_title" placeholder="card name:" type="text">
         <input id="card_info" name="card_info" placeholder="card info:" type="text">
+        <textarea style="white-space: pre-wrap;"name="deck_or_card_title2" id="deck_or_card_title2" cols="50" rows="10"></textarea>
         <select id="chosen_deck" name='chosen_deck'>
             <?php
               while($row=$result->fetch_assoc()){
@@ -76,7 +77,7 @@
         
         
        
-    </form>
+  </form>
     <form action="index.php">
       <button>return to home page</button>
     </form>
