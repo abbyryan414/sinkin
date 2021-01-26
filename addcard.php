@@ -46,9 +46,9 @@
 
     <h1>Add a card:</h1>
     <form method="post">
-        <input name="deck_or_card_title" placeholder="card name:" type="text">
-        <input name="card_info" placeholder="card info:" type="text">
-        <select name='chosen_deck'>
+        <input id="deck_or_card_title" name="deck_or_card_title" placeholder="card name:" type="text">
+        <input id="card_info" name="card_info" placeholder="card info:" type="text">
+        <select id="chosen_deck" name='chosen_deck'>
             <?php
               while($row=$result->fetch_assoc()){
                 $deck_select_name = $row['deck_or_card_title'];
@@ -74,37 +74,35 @@
 
 
         </select>
-        <script>
-          function button_clicked() {
-            $.ajax({
-              url: 'phpFiles/card_button.php',
-              method: 'POST',
-              dataType: 'text',
-              data: {
-                  deck_or_card_title: "<?php echo $_POST['deck_or_card_title']?>",
-                  login_username:"<?php echo $login_username?>",
-                  card_info:"<?php echo $_POST['card_info']?>",
-                  chosen_deck:"<?php echo $_POST['chosen_deck']?>"
-
-              }  
-                           
-            }).done(function(returnedData){
-              console.log("testing");// console print returnedData(php echoed stuff)
-              //location.reload();
-              //window.location.href="phpFiles/editYTLink.php"; 
-            })
-
-          }
-        </script>
-        <button onclick="button_clicked()">confirm</button>
         
-          
-      
+        
+       
     </form>
     <form action="index.php">
-                        <button>return to home page</button>
+      <button>return to home page</button>
     </form>
-    
+    <button onclick="confirm()">confirm</button>
+    <script>
+    function confirm() {
+      var deck_or_card_title = document.getElementById('deck_or_card_title').value;
+      var card_info = document.getElementById('card_info').value;
+      var chosen_deck = $("#chosen_deck :selected").val();
+      
+      $.ajax({
+        url: 'phpFiles/ajax_add_card.php',
+        method: 'POST',
+        dataType: 'text',
+        data: {
+          deck_or_card_title: deck_or_card_title,
+          card_info: card_info,
+          chosen_deck: chosen_deck
+        }               
+      }).done(function(returnedData){
+          alert(returnedData);
+          location.reload();
+      })
+    }
+  </script>
 </body>
 </html>
 
