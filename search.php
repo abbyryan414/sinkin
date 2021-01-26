@@ -66,7 +66,7 @@
                     $gen_card=$row['deck_or_card_title'];
                     $gen_card_info=$row['card_info'];
                     $gen_card_id=$row['id'];
-                    $gen_card_id="2";
+
                     $number = $number + 1 ;
                     echo "<br>";
                     echo "$number.$gen_card";
@@ -92,7 +92,7 @@
             method: 'POST',
             dataType: 'text',
             data: {
-            card_id: "<?php echo $gen_card_id ?>"
+            card_id: "<?php echo '$gen_card_id' ?>"
                 }     
                 })
                 window.location.href = "EditCard.php";
