@@ -1,4 +1,4 @@
 <?php
-    $card_id = $_POST['card_id'];
-    echo "$card_id"
+    session_start();
+    echo $_SESSION['gen_card_id'];
 ?>

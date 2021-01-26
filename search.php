@@ -1,5 +1,5 @@
 <?php
-
+     session_start();
     $loginusername =$_POST['username'];
     $currentpath=$_POST['pathway'];
     $loginusername ="ryan1";
@@ -66,6 +66,8 @@
                     $gen_card=$row['deck_or_card_title'];
                     $gen_card_info=$row['card_info'];
                     $gen_card_id=$row['id'];
+                   
+                    $_SESSION['gen_card_id'] = $gen_card_id;
 
                     $number = $number + 1 ;
                     echo "<br>";
@@ -87,14 +89,9 @@
 <script>
     
         function edit(){
-            $.ajax({
-            url: 'EditCard.php',
-            method: 'POST',
-            dataType: 'text',
-            data: {
-            card_id: "<?php echo '$gen_card_id' ?>"
-                }     
-                })
-                window.location.href = "EditCard.php";
-    }
+  
+          window.location.href = "EditCard.php";
+  
+      }
+            
 </script>
