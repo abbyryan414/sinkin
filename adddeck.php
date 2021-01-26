@@ -23,7 +23,7 @@
     <button name="confirm-btn">confirm</button>
 </form>
 <form action="index.php">
-                    <button>return to home page</button>
+  <button>return to home page</button>
 </form>
 
 </body>

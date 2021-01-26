@@ -59,8 +59,8 @@ if (preg_match("(/)","$deck_or_card_title")){
       }
               
       //insert data to table
-      $sql = "INSERT INTO users_cards (username,currentpath,is_card,deck_or_card_title,card_info,created_date,study_date,reps)
-      VALUES ('$login_username','$chosen_deck_path$chosen_deck/',TRUE,'$deck_or_card_title','$card_info','$local_time','$local_time','0')";
+      $sql = "INSERT INTO users_cards (username,currentpath,is_card,deck_or_card_title,card_info,created_date,study_date,reps, last_rep)
+      VALUES ('$login_username','$chosen_deck_path$chosen_deck/',TRUE,'$deck_or_card_title','$card_info','$local_time','$local_time','0', '1000')";
               
       if ($conn->query($sql) === TRUE) {
       echo "New card added";
