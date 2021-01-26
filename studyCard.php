@@ -10,50 +10,10 @@
 
 </head>
 <body>
-<label for="">Card Title: </label>
-<textarea name="card_title_area" id="card_title_area" cols="20" rows="3"></textarea>
-<br><label for="">Card Info: </label>
-<textarea name="card_info_area" id="card_info_area" cols="20" rows="3"></textarea>
-<br><label for="">Reps: </label>
-<textarea name="reps_area" id="reps_area" cols="20" rows="3"></textarea>
-<br><label for="">Last Rep: </label>
-<textarea name="last_rep_area" id="last_rep_area" cols="20" rows="3"></textarea>
-<br><label for="">Created Date: </label>
-<textarea name="created_date_area" id="created_date_area" cols="20" rows="3"></textarea>
-<br><label for="">Study Date: </label>
-<textarea name="study_date_area" id="study_date_area" cols="20" rows="3"></textarea><br>
-
-<?php
-session_start();
-$_SESSION['deck_or_card_title'] = "stuff"; 
-$_SESSION['card_info'] = "stuff";
-$_SESSION['reps'];
-$_SESSION['last_rep'];
-$_SESSION['created_date'];
-$_SESSION['study_date'];
-?>
-
-<script>
-  function jsFunction(){
-    deck_or_card_title = '<?php echo $_SESSION['deck_or_card_title']?>';
-    card_info = '<?php echo $_SESSION['card_info']?>';
-    reps = '<?php echo $_SESSION['reps']?>';
-    last_rep = '<?php echo $_SESSION['last_rep']?>';
-    created_date = '<?php echo $_SESSION['created_date']?>';
-    study_date = '<?php echo $_SESSION['study_date']?>';
-
-    document.getElementById('card_title_area').innerHTML = deck_or_card_title;
-    document.getElementById('card_info_area').innerHTML = card_info;
-    document.getElementById('reps_area').innerHTML = reps;
-    document.getElementById('last_rep_area').innerHTML = last_rep;
-    document.getElementById('created_date_area').innerHTML = created_date;
-    document.getElementById('study_date_area').innerHTML = study_date;
-  }
-</script>
 
 <?php 
 
-
+session_start();
 //update local time
 require("phpFiles/functions_library.php");
 $local_time = getLocalTime($_SESSION['gmt_int']);
@@ -62,6 +22,13 @@ echo "Local Time: ".$local_time."<br>";
 
 $username = $_SESSION['username'];
 $current_path = $_SESSION['current_path'];
+
+$card_title = "";
+$card_info = "";
+$reps2 = "";
+$last_rep2 = "";
+$created_date = "";
+$study_date = "";
 
 //this line of code is for javascript, cause js would be the $id, 
 // and would throw error is $id is null, so we must give it some value
@@ -146,49 +113,63 @@ if (!is_null($result)) {
 
   while ($row = $result->fetch_assoc()) {
     if ($counter == 0) {
-      $_SESSION['deck_or_card_title'] = $row['deck_or_card_title'];
-      $_SESSION['card_info'] = $row['card_info'];
-      $_SESSION['reps'] = $row['reps'];
-      $_SESSION['last_rep'] = $row['last_rep'];
-      $_SESSION['created_date'] = $row['created_date'];
-      $_SESSION['study_date'] = $row['study_date'];
 
-      echo "<br>Card Title: ".$_SESSION['deck_or_card_title']."<br>".
-      "Card Info: ".$_SESSION['card_info']."<br>".
-      "Reps(No. of times you viewed the card): ".$_SESSION['reps']."<br>".
-      "Last_Rep: ".$_SESSION['last_rep']."<br>".
-      "Created Date: ".$_SESSION['created_date']."<br>".
-      "Study Date: ".$_SESSION['study_date']."<br>"."<br>";
-
-      // echo "<br>Card Title: ".$row['deck_or_card_title']."<br>".
-      // "Card Info: ".$row['card_info']."<br>".
-      // "Reps(No. of times you viewed the card): ".$row['reps']."<br>".
-      // "Last_Rep: ".$row['last_rep']."<br>".
-      // "Created Date: ".$row['created_date']."<br>".
-      // "Study Date: ".$row['study_date']."<br>"."<br>";
-
-      // echo <<<EOT
-      // <script type="text/JavaScript"> 
-      //   present_info();
-      //  </script>
-      // EOT;
-      echo '<script type="text/javascript">jsFunction();</script>';
+      $card_title = $row['deck_or_card_title'];
+      $card_info = $row['card_info'];
+      $reps2 = $row['reps'];
+      $last_rep2 = $row['last_rep'];
+      $created_date = $row['created_date'];
+      $study_date = $row['study_date'];
+      echo "<br>Card Title: ".$card_title."<br>".
+      "Card Info: ".$card_info."<br>".
+      "Reps(No. of times you viewed the card): ".$reps2."<br>".
+      "Last_Rep: ".$last_rep2."<br>".
+      "Created Date: ".$created_date."<br>".
+      "Study Date: ".$study_date."<br>"."<br>";
 
       $reps = $row['reps'];
       $last_rep = $row['last_rep'];
       $id = $row['id'];
     }
     $counter = $counter - 1;
+    
   }
 } else {
   echo "result is null";
-
-  
 }
 
 
 
 ?>
+<br>
+<label for="">Card Title: </label>
+<textarea name="card_title_area" id="card_title_area" cols="20" rows="3">
+<?php echo $card_title;?>
+</textarea>
+<br><label for="">Card Info: </label>
+<textarea name="card_info_area" id="card_info_area" cols="20" rows="3">
+<?php echo $card_info;?>
+</textarea>
+<br><label for="">Reps: </label>
+<textarea name="reps_area" id="reps_area" cols="20" rows="3">
+<?php echo $reps2;?>
+</textarea>
+<br><label for="">Last Rep: </label>
+<textarea name="last_rep_area" id="last_rep_area" cols="20" rows="3">
+<?php echo $last_rep2;?>
+</textarea>
+<br><label for="">Created Date: </label>
+<textarea name="created_date_area" id="created_date_area" cols="20" rows="3">
+<?php echo $created_date;?>
+</textarea>
+<br><label for="">Study Date: </label>
+<textarea name="study_date_area" id="study_date_area" cols="20" rows="3">
+<?php echo $study_date;?>
+</textarea>
+
+<br>
+
+
 
 <button id="wrong_btn" onclick="to_new_study_date_php('false')">Again :(</button>
 <button style="white-space: pre-wrap;" id="correct_btn" onclick="to_new_study_date_php('true')">Got it :)</button>

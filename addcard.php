@@ -45,9 +45,8 @@
 
     <h1>Add a card:</h1>
     <form method="post">
-        <input id="deck_or_card_title" name="deck_or_card_title" placeholder="card name:" type="text">
-        <input id="card_info" name="card_info" placeholder="card info:" type="text">
-        <textarea style="white-space: pre-wrap;"name="deck_or_card_title2" id="deck_or_card_title2" cols="50" rows="10"></textarea>
+        <textarea placeholder="Card Name: " name="deck_or_card_title_area" id="deck_or_card_title_area" cols="30" rows="10"></textarea>
+        <textarea placeholder="Card Info: " name="card_info_area" id="card_info_area" cols="30" rows="10"></textarea>
         <select id="chosen_deck" name='chosen_deck'>
             <?php
               while($row=$result->fetch_assoc()){
@@ -84,8 +83,8 @@
     <button onclick="confirm()">confirm</button>
     <script>
     function confirm() {
-      var deck_or_card_title = document.getElementById('deck_or_card_title').value;
-      var card_info = document.getElementById('card_info').value;
+      var deck_or_card_title = document.getElementById('deck_or_card_title_area').value;
+      var card_info = document.getElementById('card_info_area').value;
       var chosen_deck = $("#chosen_deck :selected").val();
       
       $.ajax({

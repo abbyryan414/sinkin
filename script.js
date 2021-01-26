@@ -1,6 +1,7 @@
 console.log("script file present")
 function WordSearch(){
     leword = document.getElementById('searchword').value
+    document.getElementById("deck_or_card_title_area").innerHTML = leword;
     console.log(leword)
     console.log(321);
     fetch(`https://wordsapiv1.p.rapidapi.com/words/${leword}`, {
@@ -32,9 +33,9 @@ function WordSearch(){
         //ERROR: Uncaught (in promise) ReferenceError: x is not defined
         //Do not be fooled. X is defined. JS spits a reference error when it isn't returning something explicitly. Refer to the internet.
     }
-    document.getElementById("definition_area").innerHTML = x;
-    document.getElementById('card_info').value = x;
-    $('#deck_or_card_title2').val(x);
+    document.getElementById("card_info_area").innerHTML = x;
+    // //document.getElementById('card_info_area').innerHTML = x;
+    // $('#card_info_area').val(x);
     
     //console display all definitions
 })
