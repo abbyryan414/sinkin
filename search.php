@@ -6,6 +6,19 @@
     $currentpath="ryan1/";
     
 ?>
+<script>
+    function edit(){
+        window.location.href = "EditCard.php";
+        $.ajax({
+        url: 'EditCard.php',
+        method: 'POST',
+        dataType: 'text',
+        data: {
+        card_id: "<?php echo $gen_card_id?>"
+            }     
+         })
+    }
+</script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,10 +62,10 @@
         //check for names including 
         if (strlen($entered_word) > 0 && strlen(trim($entered_word)) == 0){
             //check for space
-            echo "Deck name cannot be blank";
+            echo "Card name cannot be blank";
             }elseif (preg_match("(^[NULL]{0}$)","$entered_word")){
             //check for blank
-            echo "Deck name cannot be blank";
+            echo "Card name cannot be blank";
             }elseif ($result->num_rows == 0){
                 //no card found
                 echo "no card found";
@@ -62,15 +75,17 @@
                     //auto generate results
                     $gen_card=$row['deck_or_card_title'];
                     $gen_card_info=$row['card_info'];
+                    $gen_card_id=$row['id'];
                     $number = $number + 1 ;
                     echo "<br>";
                     echo "$number.$gen_card";
                     echo "<br>";
                     echo "$gen_card_info";
+                    echo'<button onclick="edit()">edit the above card</button>';
                 }
                 $number = 0 ;
             }
-           
+        
         
                 
     }

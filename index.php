@@ -15,6 +15,7 @@
 <button onclick="toDictionary()">To Dictionary</button>
 <button onclick="addDeck()">To AddDeck</button>
 <button onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
+<button onclick="search()">Search For a Card</button>
 <form action="" method="POST">
   <button type="submit" id="back_btn" name="back_btn">Back 1 Directory</button>
   <button type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
@@ -136,6 +137,9 @@ function addCard() {
 
 function studyCard() {
   window.location.href = "studyCard.php";
+}
+function search() {
+  window.location.href = "search.php";
 }
 
 // Go to changeDirectory.php to change the current path if deck button is clicked
