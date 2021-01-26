@@ -6,19 +6,9 @@
     $currentpath="ryan1/";
     
 ?>
-<script>
-    function edit(){
-        window.location.href = "EditCard.php";
-        $.ajax({
-        url: 'EditCard.php',
-        method: 'POST',
-        dataType: 'text',
-        data: {
-        card_id: "<?php echo $gen_card_id?>"
-            }     
-         })
-    }
-</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" 
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
+  crossorigin="anonymous"></script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -76,11 +66,13 @@
                     $gen_card=$row['deck_or_card_title'];
                     $gen_card_info=$row['card_info'];
                     $gen_card_id=$row['id'];
+                    $gen_card_id="2";
                     $number = $number + 1 ;
                     echo "<br>";
                     echo "$number.$gen_card";
                     echo "<br>";
                     echo "$gen_card_info";
+
                     echo'<button onclick="edit()">edit the above card</button>';
                 }
                 $number = 0 ;
@@ -91,3 +83,18 @@
     }
 
 ?>
+
+<script>
+    
+        function edit(){
+            $.ajax({
+            url: 'EditCard.php',
+            method: 'POST',
+            dataType: 'text',
+            data: {
+            card_id: "<?php echo $gen_card_id ?>"
+                }     
+                })
+                window.location.href = "EditCard.php";
+    }
+</script>
