@@ -20,7 +20,7 @@ require_once("phpFiles/functions_library.php");
 
 require_once("phpFiles/db_handler.php");
 
-$sql = "SELECT * FROM users_cards WHERE username= '$login_username' AND currentpath = '$current_path' AND id = $gen_card_id";
+$sql = "SELECT * FROM users_cards WHERE username= '$login_username' AND id = $gen_card_id";
 $result = $conn->query($sql);
 $row=$result->fetch_assoc();
 echo $row['deck_or_card_title'];
@@ -50,31 +50,38 @@ crossorigin="anonymous"></script>
 <form action="index.php">
   <button>return to home page</button>
 </form>
-<button onclick="confirm()">confirm</button>
+<button onclick="confirm()">update card</button>
+<button onclick="deletec()">delete card</button>
 <script>
 function confirm() {
   var deck_or_card_title = document.getElementById('deck_or_card_title_area').value;
   var card_info = document.getElementById('card_info_area').value;
-  var chosen_deck = $("#chosen_deck :selected").val();
+  
   
   $.ajax({
-    url: 'phpFiles/ajax_add_card.php',
+    url: 'phpFiles/ajax_edit_card.php',
     method: 'POST',
     dataType: 'text',
     data: {
       deck_or_card_title: deck_or_card_title,
-      card_info: card_info,
-      chosen_deck: chosen_deck
+      card_info: card_info
     }               
   }).done(function(returnedData){
       alert(returnedData);
       location.reload();
   })
 }
+function deletec() {
+  $.ajax({
+    url: 'phpFiles/ajax_delete_card.php',
+             
+  }).done(function(returnedData){
+      alert(returnedData);
+      window.location.href = "index.php";
+  })
+}
 </script>
 </body>
 </html>
-$sql = "UPDATE users_cards SET deck_or_card_title='' WHERE id=2";
-$sql = "DELETE users_cards WHERE id=2";
 
 
