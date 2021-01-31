@@ -21,7 +21,7 @@
         <input name="entered_word" placeholder="word to be searched:" type="text">
         <button name="confirm-btn">confirm</button>
     </form>
-    <form action="home.php">
+    <form action="index.php">
                         <button>return to home page</button>
     </form>
     
