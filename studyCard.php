@@ -120,12 +120,12 @@ if (!is_null($result)) {
       $last_rep2 = $row['last_rep'];
       $created_date = $row['created_date'];
       $study_date = $row['study_date'];
-      echo "<br>Card Title: ".$card_title."<br>".
-      "Card Info: ".$card_info."<br>".
-      "Reps(No. of times you viewed the card): ".$reps2."<br>".
-      "Last_Rep: ".$last_rep2."<br>".
-      "Created Date: ".$created_date."<br>".
-      "Study Date: ".$study_date."<br>"."<br>";
+      // echo "<br>Card Title: ".$card_title."<br>".
+      // "Card Info: ".$card_info."<br>".
+      // "Reps(No. of times you viewed the card): ".$reps2."<br>".
+      // "Last_Rep: ".$last_rep2."<br>".
+      // "Created Date: ".$created_date."<br>".
+      // "Study Date: ".$study_date."<br>"."<br>";
 
       $reps = $row['reps'];
       $last_rep = $row['last_rep'];
@@ -142,10 +142,21 @@ if (!is_null($result)) {
 
 ?>
 <br>
+
+<script>
+  function hide_wrong_and_correct_btn() {
+    var x = document.getElementById("wrong_btn");
+    x.style.display = "none";
+    var x = document.getElementById("correct_btn");
+    x.style.display = "none";
+  
+  }
+</script>
 <label for="">Card Title: </label>
 <textarea name="card_title_area" id="card_title_area" cols="20" rows="3">
 <?php echo $card_title;?>
 </textarea>
+
 <br><label for="">Card Info: </label>
 <textarea name="card_info_area" id="card_info_area" cols="20" rows="3">
 <?php echo $card_info;?>
@@ -166,14 +177,20 @@ if (!is_null($result)) {
 <textarea name="study_date_area" id="study_date_area" cols="20" rows="3">
 <?php echo $study_date;?>
 </textarea>
-
 <br>
-
-
 
 <button id="wrong_btn" onclick="to_new_study_date_php('false')">Again :(</button>
 <button style="white-space: pre-wrap;" id="correct_btn" onclick="to_new_study_date_php('true')">Got it :)</button>
+
 <script>
+  document.getElementById('card_info_area').style.visibility = 'hidden';
+  document.getElementById('wrong_btn').style.display = 'none';
+  document.getElementById('correct_btn').style.display = 'none';
+</script>
+
+
+<script>
+
  
   var id = "<?php echo $id?>";
   console.log(id);
@@ -245,7 +262,16 @@ if (!is_null($result)) {
   }
 </script>
 
-
+  <button id="show_answer_btn" onclick="show_answer()">Show Answer</button>
+  <script>
+    function show_answer() {
+      document.getElementById('card_info_area').style.visibility = 'visible';
+      document.getElementById('wrong_btn').style.display = 'inline';
+      document.getElementById('correct_btn').style.display = 'inline';
+      document.getElementById('show_answer_btn').style.visibility = 'hidden';
+    }
+  </script>
+  
 
 
   
