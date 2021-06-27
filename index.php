@@ -30,8 +30,8 @@
 
 
   //set default username 
-  $username = "ryan1";
-  $current_path = $username . "/";
+  //$username = "ryan1";
+  //$current_path = $username . "/";
   
   //receive current path from other files(eg: changeDirectory.php)
   if (isset($_SESSION['current_path'])) {
@@ -40,8 +40,8 @@
   }
 
  
-  $_SESSION['username'] = $username;
-  $_SESSION['current_path'] = $current_path;
+  $username = $_SESSION['username'] ;
+  $current_path = $_SESSION['current_path'] ;
 
 
 

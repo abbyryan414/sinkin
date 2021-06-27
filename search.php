@@ -77,7 +77,7 @@
                     
                     
                     echo <<<EOT
-                    <button onclick='card_clicked("$gen_card_id")'>$gen_card</button>
+                    <button onclick='card_clicked("$gen_card_id")'>edit this card</button>
                     EOT;
                 }
                 $number = 0 ;
