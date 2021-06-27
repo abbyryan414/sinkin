@@ -67,15 +67,18 @@
                     $gen_card_info=$row['card_info'];
                     $gen_card_id=$row['id'];
                    
-                    $_SESSION['gen_card_id'] = $gen_card_id;
+                    
 
                     $number = $number + 1 ;
                     echo "<br>";
                     echo "$number.$gen_card";
                     echo "<br>";
                     echo "$gen_card_info";
-
-                    echo'<button onclick="edit()">edit the above card</button>';
+                    
+                    
+                    echo <<<EOT
+                    <button onclick='card_clicked("$gen_card_id")'>$gen_card</button>
+                    EOT;
                 }
                 $number = 0 ;
             }
@@ -88,10 +91,22 @@
 
 <script>
     
-        function edit(){
-  
-          window.location.href = "EditCard.php";
-  
-      }
+    function card_clicked(card_id) {
+  if (card_id === undefined) {
+    card_id = "default card id";
+  }
+
+  $.ajax({
+    url: 'phpFiles/editcard.php',
+    method: 'POST',
+    dataType: 'text',
+    data: {
+        card_id: card_id
+    }               
+  }).done(function(returnedData){
+      console.log(returnedData);// console print returnedData(php echoed stuff)
+      window.location.href = "EditCard.php";
+  })
+}
             
 </script>
