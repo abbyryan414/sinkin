@@ -56,6 +56,11 @@
   $username = $_SESSION['username'] ;
   $current_path = $_SESSION['current_path'] ;
 
+  if (isset($username) == false ) {
+    header("Location:login.php");
+
+  }
+
 
 
   echo "<br>Username: ".$username."<br>";
