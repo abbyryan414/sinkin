@@ -21,6 +21,7 @@
 </html>
 
 <?php
+
 if(array_key_exists('confirm-btn', $_POST)) { 
 
   require_once("phpFiles/db_handler.php");
