@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Page</title>
-
+  <link rel="stylesheet" href="css_files/index.css">
   <!-- JQuery CDN -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
@@ -11,16 +11,29 @@
 </head>
 <body>
 
-<h1 id="welcome-msg"></h1>
-<button onclick="toDictionary()">To Dictionary</button>
-<button onclick="addDeck()">To AddDeck</button>
-<button onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
-<button onclick="search()">Search For a Card</button>
-<form action="" method="POST">
-  <button type="submit" id="back_btn" name="back_btn">Back 1 Directory</button>
-  <button type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
-  <button type="submit" id="add_card_btn" name="add_card_btn">To Add Card</button>
-</form>
+<div class="container">
+  <h1 id="welcome-msg"></h1>
+  <!-- <img id="mountain_png" src="images/mountain_png.png" alt=""> -->
+  <img id="mountain_png" src="images/melody_tree.PNG" alt="">
+</div>
+
+<div class="container2">
+
+<div class="button_container">
+  
+  <button class="button" onclick="toDictionary()">To Dictionary</button>
+  <button class="button" onclick="addDeck()">To AddDeck</button>
+  <button class="button" onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
+  <button class="button" onclick="search()">Search For a Card</button>
+
+
+  <form class="button_form" action="" method="POST">
+    <button class="button" type="submit" id="back_btn" name="back_btn">Back</button>
+    <button class="button" type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
+    <button class="button" type="submit" id="add_card_btn" name="add_card_btn">To Add Card</button>
+  </form>
+
+</div>
 
 
 <?php
@@ -217,6 +230,8 @@ if(array_key_exists('delete_deck_btn', $_POST)) {
 
 ?>
 
-  
+<!-- This div tag closes the div with class "container2" -->
+</div>
+
 </body>
 </html>
