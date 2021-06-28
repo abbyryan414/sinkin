@@ -75,3 +75,12 @@
   height: 100px;
   background-color: white;
 }
+
+#back_btn {
+  font-size: 1.5vw;
+}
+#back_btn > i{
+  background-color: transparent;
+  color: rgb(0, 164, 250);
+  /* font-size: 30px; */
+}

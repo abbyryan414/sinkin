@@ -8,6 +8,10 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
   crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous"> -->
 </head>
 <body>
 
@@ -27,17 +31,13 @@
   <button class="button" onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
   <button class="button" onclick="search()">Search For a Card</button>
 
-  
-  <form class="button_form" action="" method="POST">
-    <button class="button" type="submit" id="back_btn" name="back_btn">Back</button>
-  </form>
+  <button class="button" onclick="back_btn_clicked()" id="back_btn" name="back_btn"><i id="back_icon" class="fas fa-backward"></i> Back</button>
+
   <form class="button_form" action="" method="POST">
     <button class="button" type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
     <button type="submit" id="logout_btn" name="logout_btn">logout</button>
   </form>
-  <!-- <form class="button_form" action="" method="POST">
-    <button class="button" type="submit" id="add_card_btn" name="add_card_btn">To Add Card</button>
-  </form> -->
+
 
 </div>
 
@@ -171,6 +171,21 @@ function search() {
   window.location.href = "search.php";
 }
 
+function back_btn_clicked() {
+  $.ajax({
+    url: 'phpFiles/back_btn_clicked.php',
+    method: 'POST',
+    dataType: 'text',
+    data: {
+      current_path: "<?php echo $_SESSION['current_path']?>"
+    }               
+  }).done(function(returnedData){
+      console.log(returnedData);// console print returnedData(php echoed stuff)
+      location.reload();
+      //window.location.href="phpFiles/editYTLink.php"; 
+  })
+}
+
 
 
 // Go to changeDirectory.php to change the current path if deck button is clicked
@@ -216,12 +231,6 @@ if(array_key_exists('add_card_btn', $_POST)) {
   header("Location:addcard.php");
 }
 
-
-//if back btn is pressed, go back one directory, and refresh page
-if(array_key_exists('back_btn', $_POST)) { 
-  $_SESSION['current_path'] = back_one_dir($current_path);
-  header("Refresh:0");
-}
 
 //if logout-btn pressed, set everything as null and direct to login.php
 if(array_key_exists('logout_btn', $_POST)) { 
