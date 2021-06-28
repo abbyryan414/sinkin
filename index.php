@@ -229,7 +229,8 @@ if(array_key_exists('logout_btn', $_POST)) {
   $current_path = null; 
   $_SESSION['username'] = null;
   $_SESSION['current_path'] = null;
-  header("Location:login.php");
+  //header("Location:login.php");
+  echo '<script>parent.window.location.reload(true);</script>';
 }
 
 
