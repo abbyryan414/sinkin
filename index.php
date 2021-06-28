@@ -20,7 +20,9 @@
   <button type="submit" id="back_btn" name="back_btn">Back 1 Directory</button>
   <button type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
   <button type="submit" id="add_card_btn" name="add_card_btn">To Add Card</button>
+  <button type="submit" id="logout_btn" name="logout_btn">logout</button>
 </form>
+
 
 
 <?php
@@ -147,6 +149,8 @@ function search() {
   window.location.href = "search.php";
 }
 
+
+
 // Go to changeDirectory.php to change the current path if deck button is clicked
 // and it'll refresh the page to search for decks in new path
 function deck_clicked(deck_name) {
@@ -197,12 +201,23 @@ if(array_key_exists('back_btn', $_POST)) {
   header("Refresh:0");
 }
 
+//if logout-btn pressed, set everything as null and direct to login.php
+if(array_key_exists('logout_btn', $_POST)) { 
+  $username = null;
+  $current_path = null; 
+  $_SESSION['username'] = null;
+  $_SESSION['current_path'] = null;
+  header("Location:login.php");
+}
+
 
 //if delete_deck btn is pressed, go back one directory
 // (eg: Marco/Deck1/ -> Marco/)
 // Also changes the current_path global variable
 if(array_key_exists('delete_deck_btn', $_POST)) {
   $current_path_minus_one = back_one_dir($current_path);
+
+
 
 //gets the deck name
   $deck_to_delete = getLastDir($current_path);
@@ -219,6 +234,7 @@ if(array_key_exists('delete_deck_btn', $_POST)) {
   }
    
 }
+
 
 ?>
 
