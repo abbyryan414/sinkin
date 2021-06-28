@@ -15,23 +15,28 @@
   <h1 id="welcome-msg"></h1>
   <!-- <img id="mountain_png" src="images/mountain_png.png" alt=""> -->
   <img id="mountain_png" src="images/melody_tree.PNG" alt="">
+  <h4 id="current_path_label">Current Path: blahblahblah</h4>
 </div>
 
 <div class="container2">
 
 <div class="button_container">
-  
-  <button class="button" onclick="toDictionary()">To Dictionary</button>
+
+  <button class="button" onclick="toDictionary()">Add Card</button>
   <button class="button" onclick="addDeck()">To AddDeck</button>
   <button class="button" onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
   <button class="button" onclick="search()">Search For a Card</button>
 
-
+  
   <form class="button_form" action="" method="POST">
     <button class="button" type="submit" id="back_btn" name="back_btn">Back</button>
-    <button class="button" type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
-    <button class="button" type="submit" id="add_card_btn" name="add_card_btn">To Add Card</button>
   </form>
+  <form class="button_form" action="" method="POST">
+    <button class="button" type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
+  </form>
+  <!-- <form class="button_form" action="" method="POST">
+    <button class="button" type="submit" id="add_card_btn" name="add_card_btn">To Add Card</button>
+  </form> -->
 
 </div>
 
@@ -65,6 +70,10 @@
 
   echo "<br>Username: ".$username."<br>";
   echo "Current Path: ".$current_path."<br>";
+  echo "
+  <script>
+      document.getElementById('current_path_label').innerHTML ='Current Path: $current_path';
+  </script>";
 
   require_once("phpFiles/db_handler.php");
   

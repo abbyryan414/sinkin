@@ -16,24 +16,27 @@
   height: 50%;
   border: 1px solid red;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-
+  /* flex-direction: row; */
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #welcome-msg {
-  flex-grow: 2;
-  width: 50%;
+  width: 70%;
   text-align: center;
   font-size: 7vw;
   /* border: 2px solid black; */
 }
 
 #mountain_png {
-  flex-grow: 0.5;
   /* border: 2px solid black; */
   width: 20%;
   margin-right: 20px;
+}
+
+#current_path_label {
+  margin-bottom: 10px;
 }
 
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
