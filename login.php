@@ -11,47 +11,45 @@
 
 <h1>log in</h1>
 <form method="post">
-    <input name="user_name" placeholder="username:" type="text">
-    <input name="password" placeholder="password:" type="text">
+    <input name="user_name" id="user_name"placeholder="username:" type="text">
+    <input name="password" id="password"placeholder="password:" type="text">
     <a href="signup.php">don't have an account?click here</a>
-    <button name="confirm-btn">confirm</button>
+    <button onclick="login_clicked()">confirm</button>
 </form>
+<?php
+require_once("phpFiles/db_handler.php");?>
+<script>
+  
+    function login_clicked() {
+      var user_name = document.getElementById('user_name').value;
+      var password = document.getElementById('password').value;
+    $.ajax({
+      url: 'phpFiles/login_clicked.php',
+      method: 'POST',
+      dataType: 'text',
+      data: {
+        user_name:user_name,
+        password:password
+      }  
+                   
+    }).done(function(returnedData){
+        console.log(returnedData);// console print returnedData(php echoed stuff)
+        window.alert(returnedData);
+        //var checking_data = returnedData;
+        
+        if (returnedData == "success"){
+          window.location.href = "index.php" ;
+        }
 
+
+        
+    })
+    
+  }
+</script>
 </body>
 </html>
 
-<?php
 
-if(array_key_exists('confirm-btn', $_POST)) { 
 
-  require_once("phpFiles/db_handler.php");
-    
-  $user_name=$_POST['user_name'];
-  $password=$_POST['password'];
-    
-    
-  $value = "SELECT* FROM users WHERE username= '$user_name'";
-  $result = $conn->query($value);
-  $value1 = "SELECT* FROM users WHERE username= '$user_name' AND userpassword = '$password'";
-  $result1 = $conn->query($value1);
-    
 
-  if ($result->num_rows > 0){
-    if ($result1->num_rows > 0){
-      session_start();
-      $_SESSION['username'] = $user_name;
-      $_SESSION['current_path'] = $user_name . "/";
-      header("Location:index.php");
-    }else{
-      echo"incorrect password";
-      //location.reload();
-    }
-  }else{
-    echo"this username does not exist";
-    //location.reload();
-  }
-  
-            
-}
-
-?>
