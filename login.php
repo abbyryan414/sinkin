@@ -33,9 +33,9 @@ require_once("phpFiles/db_handler.php");?>
       }  
                    
     }).done(function(returnedData){
-        console.log(returnedData);// console print returnedData(php echoed stuff)
+        console.log(returnedData);
         window.alert(returnedData);
-        //var checking_data = returnedData;
+        
         
         if (returnedData == "success"){
           window.location.href = "index.php" ;

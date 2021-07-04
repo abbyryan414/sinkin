@@ -3,12 +3,10 @@
 
 
 
-//if (isset($_POST['user_name'])) {
- // if (isset($_POST['password'])) {
+
   $user_name=$_POST['user_name'];
   $password=$_POST['password'];
-  //echo "$user_name";
-  //echo "$password";
+ 
 
   require_once("db_handler.php");
     
@@ -25,15 +23,13 @@
       session_start();
       $_SESSION['username'] = $user_name;
       $_SESSION['current_path'] = $user_name . "/";
-      //header("Location:index.php");
+      
       echo"success";
     }else{
       echo"incorrect password";
-      //location.reload();
+     
     }
   }else{
     echo"this username does not exist";
-    //location.reload();
+    
   }
-//}
-//}
