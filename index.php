@@ -24,22 +24,31 @@
 
 <div class="container2">
 
-<div class="button_container">
+<!-- <div class="button_container"> -->
 
-  <button class="button" onclick="toDictionary()">Add Card</button>
-  <button class="button" onclick="addDeck()">To AddDeck</button>
-  <button class="button" onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
-  <button class="button" onclick="search()">Search For a Card</button>
+  <div class="upper_btn_container">
+    <button class="button" onclick="toDictionary()">Add Card</button>
+    <button class="button" onclick="addDeck()">To AddDeck</button>
+  </div>
+  <div class="lower_btn_container">
+    <button class="button" onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
+    <button class="button" onclick="search()">Search For a Card</button>
+  </div>
+  
+  
 
   <button class="button" onclick="back_btn_clicked()" id="back_btn" name="back_btn"><i id="back_icon" class="fas fa-backward"></i> Back</button>
-
+  
+  <!-- <button class="delete_deck_btn" onclick="delete_btn_clicked()" id="delete_deck_btn" name="delete_deck_btn"></button> -->
+  <button class="delete_deck_btn" onclick="delete_btn_clicked()" id="delete_deck_btn" name="delete_deck_btn"><img src="css_files/delete.png" alt=""></button>
+  
   <form class="button_form" action="" method="POST">
-    <button class="button" type="submit" id="delete_deck_btn" name="delete_deck_btn">Delete Deck</button>
-    <button type="submit" id="logout_btn" name="logout_btn">logout</button>
+    
+    <button type="submit" id="logout_btn" name="logout_btn">Log out</button>
   </form>
 
 
-</div>
+<!-- </div> -->
 
 
 
@@ -186,6 +195,20 @@ function back_btn_clicked() {
   })
 }
 
+function delete_btn_clicked() {
+  $.ajax({
+    url: 'phpFiles/delete_btn_clicked.php',
+    method: 'POST',
+    dataType: 'text',
+    data: {
+      current_path: "<?php echo $_SESSION['current_path']?>"
+    }               
+  }).done(function(returnedData){
+      alert(returnedData);
+      location.reload();
+  })
+}
+
 
 
 // Go to changeDirectory.php to change the current path if deck button is clicked
@@ -246,26 +269,26 @@ if(array_key_exists('logout_btn', $_POST)) {
 //if delete_deck btn is pressed, go back one directory
 // (eg: Marco/Deck1/ -> Marco/)
 // Also changes the current_path global variable
-if(array_key_exists('delete_deck_btn', $_POST)) {
-  $current_path_minus_one = back_one_dir($current_path);
+// if(array_key_exists('delete_deck_btn', $_POST)) {
+//   $current_path_minus_one = back_one_dir($current_path);
 
 
 
-//gets the deck name
-  $deck_to_delete = getLastDir($current_path);
+//  //gets the deck name
+//   $deck_to_delete = getLastDir($current_path);
   
-  $sql = "DELETE FROM users_cards WHERE username='$username' AND (deck_or_card_title='$deck_to_delete' OR currentpath LIKE '$current_path%')"; // SQL with parameters
-  if (mysqli_query($conn, $sql)) {
-    echo "Record deleted successfully";
-    echo $current_path_minus_one;
-    echo $current_path;
-    $_SESSION['current_path'] = back_one_dir($current_path);
-    header("Refresh:0");
-  } else {
-    echo "Error deleting record: " . mysqli_error($conn);
-  }
+//   $sql = "DELETE FROM users_cards WHERE username='$username' AND (deck_or_card_title='$deck_to_delete' OR currentpath LIKE '$current_path%')"; // SQL with parameters
+//   if (mysqli_query($conn, $sql)) {
+//     echo "Record deleted successfully";
+//     echo $current_path_minus_one;
+//     echo $current_path;
+//     $_SESSION['current_path'] = back_one_dir($current_path);
+//     header("Refresh:0");
+//   } else {
+//     echo "Error deleting record: " . mysqli_error($conn);
+//   }
    
-}
+// }
 
 
 ?>
