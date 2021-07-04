@@ -11,19 +11,19 @@ $local_time = getLocalTime($_SESSION['gmt_int']);
 $login_username = $_SESSION['username'];
 $current_path = $_SESSION['current_path'];
 $back_one_dir = back_one_dir($current_path);
-echo "login: ".$login_username;
-echo "current_path: ".$current_path;
+//echo "login: ".$login_username;
+//echo "current_path: ".$current_path;
 
           
 $deck_or_card_title = $_POST['deck_or_card_title'];
 $card_info = $_POST['card_info'];
-echo "Deck or card title: ".$deck_or_card_title;
-echo "Card info: ".$card_info;
+//echo "Deck or card title: ".$deck_or_card_title;
+//echo "Card info: ".$card_info;
 
 
 //gets the deck the user selected (or the default deck if he didn't select one)
 $chosen_deck=$_POST['chosen_deck'];
-echo "Chosen: ".$chosen_deck;
+//echo "Chosen: ".$chosen_deck;
 
 //store the deck the user selected to $_SESSION['selected_deck'], so that the default deck will be the deck the user has just selected
 // NOTE: will have to refresh in order for the default deck option to change

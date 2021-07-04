@@ -1,86 +1,183 @@
+
 console.log("script file present")
-function WordSearch(){
-    leword = document.getElementById('searchword').value
-    console.log(leword)
-    console.log(321);
+var definitions = "";
+var examples = "";
+var antonyms = "";
+var synonyms = "";
+function WordSearch() {
+  var p = document.getElementById("example_area");
+  p.style.display = "none";
+  leword = document.getElementById('searchword').value
+  document.getElementById("deck_or_card_title_area").innerHTML = leword;
+  if (document.getElementById('Show Definitions').checked == false) {
+    get_examples();
+  } else {
     fetch(`https://wordsapiv1.p.rapidapi.com/words/${leword}`, {
-    //gets the word user inputted. There must be a better way to do this...
-    "method": "GET",
-    "headers": {
-      "x-rapidapi-key": "9adf941a45mshca905293069e03bp180a5ajsn652a5848be6e",
-      //Remember to conceal the api key!! Dont let the pirates get it!
-      "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"
-    }
-  })
-//This is where crap hits the fan. GOAL: to display received api data on html. Format: list or table.
+      //gets the word user inputted. There must be a better way to do this...
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": "9adf941a45mshca905293069e03bp180a5ajsn652a5848be6e",
+        //Remember to conceal the api key!! Dont let the pirates get it!
+        "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"
 
-//METHOD 1
-    .then((res) => res.json())
-    //transforms api response to json
-    .then((data)=>{
-    let bruh = Object.values(data);
-    console.log(bruh);
-    var x = "";
-    for(i in data.results){
-        // x += "<h1>"+ bruh.results[i].definition + "</h1>";
-        //x = "<h1>"+ bruh[1][i].definition + "</h1>";
-        x += bruh[1][i].definition + "<br>";
-        //console.log(x);
-        
-        //console.log(bruh[1][1].definition);
-        //loop thru the results tab and shows the definitions
-        //ERROR: Uncaught (in promise) ReferenceError: x is not defined
-        //Do not be fooled. X is defined. JS spits a reference error when it isn't returning something explicitly. Refer to the internet.
-    }
-    document.getElementById("definition_area").innerHTML = x;
-    
-    //console display all definitions
-})
-
-/*
-METHOD 2
-    .then(res) => res.json()
-    .then((data) => {
-        let output = `<h2> ${leword}</h2>`
-        data.forEach(function(result){
-        //loops thru results
-        //ERROR: data.forEach is not a function
-        //This is caused because data is json and not an array.
-        //forEach can only be used on an array.
-            output += `
-                <ul>
-                    <li>Definition: ${result.definition}</li>
-                </ul>
-            `
-        })
-        console.log(output)
+      }
     })
-*/
 
 
-/*
-METHOD 3
-    .then((res) => res.json())
-    //transforms api response to json
-    .then((data)=>{
-    let bruh = Object.values(data);
-    console.log(bruh)
-    bruh.array.forEach(function(result) {
-        output += `
-        <ul>
-            <li>Definition: ${result.definition}</li>
-        </ul>
-    `
-    });
-        //loop thru results and shows the definitions
-        //ERROR: Uncaught (in promise) TypeError: Cannot read property 'forEach' of undefined
-        //No idea. 
-        //This method is technically the same as method 2, only replacing the json with an array. 
-        //I feel like this might be the ticket out. Just implementation problems on my side.
+      //    Checks for status code: 200 ok
+      .then((res => {
+        if (!res.ok) {
+          document.getElementById("definition_list").innerHTML = "No such word!";
+          document.getElementById("example_area").innerHTML = "Invalid!"
+          throw new Error('No word found')
+        }
+        return res;
+      }))
+
+      .then((res) => res.json())
+
+      //transforms api response to json
+      .then((data) => {
+        let bruh = Object.values(data);
+        console.log(bruh);
+        var x = "";
+        for (i in data.results) {
+          x += bruh[1][i].definition + "\n";
+        }
+        definitions = x;
+        get_examples();
+      })
+      .catch((error) => {
+        console.error("error:", error);
+      })
+  }
+
+  
+}
+
+function get_examples() {
+  if (document.getElementById('Show Example').checked == false) {
+    get_antonyms();
+  } else {
+    fetch(`https://wordsapiv1.p.rapidapi.com/words/${leword}/examples`, {
+      //gets the word user inputted. There must be a better way to do this...
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": "9adf941a45mshca905293069e03bp180a5ajsn652a5848be6e",
+        //Remember to conceal the api key!! Dont let the pirates get it!
+        "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"
+      }
+    })
+
+      .then((res) => res.json())
+      //transforms api response to json
+      .then((data) => {
+        let hey = Object.values(data);
+        console.log(hey);
+        var y = "";
+        var ia = hey[1];
+        if (ia == 0) {
+          y = "There doesn't seem to be any examples available for this word!";
+        }
+        else {
+          for (i in hey[1]) {
+            y += hey[1][i] + "\n";
+          }
+        }
+        examples = y;
+        get_antonyms();
+      })
+  }
+  
+}
+
+function get_antonyms() {
+  if (document.getElementById('Show Antonyms').checked == false) {
+    get_synonyms();
+  } else {
+    fetch(`https://wordsapiv1.p.rapidapi.com/words/${leword}/antonyms`, {
+      //gets the word user inputted. There must be a better way to do this...
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": "9adf941a45mshca905293069e03bp180a5ajsn652a5848be6e",
+        //Remember to conceal the api key!! Dont let the pirates get it!
+        "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"
+      }
+    })
+      .then((res) => res.json())
+      //transforms api response to json
+      .then((data) => {
+        let hey = Object.values(data);
+        console.log(hey);
+        var y = "";
+        var ia = hey[1];
+        if (ia == 0) {
+          y = "There doesn't seem to be any antonyms available for this word!";
+        }
+
+        for (i in hey[1]) {
+          y += hey[1][i] + "\n";
+          console.log(y);
+        }
+        antonyms = y;
+        get_synonyms();
+      })
+  }
+  
+}
+
+function get_synonyms() {
+  if (document.getElementById('Show Synonyms').checked == false) {
+    present_data();
+  } else {
+    fetch(`https://wordsapiv1.p.rapidapi.com/words/${leword}/synonyms`, {
+      //gets the word user inputted. There must be a better way to do this...
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": "9adf941a45mshca905293069e03bp180a5ajsn652a5848be6e",
+        //Remember to conceal the api key!! Dont let the pirates get it!
+        "x-rapidapi-host": "wordsapiv1.p.rapidapi.com"
+      }
+    })
+      .then((res) => res.json())
+      //transforms api response to json
+      .then((data) => {
+        let hey = Object.values(data);
+        console.log(hey);
+        var y = "";
+        var ia = hey[1];
+        if (ia == 0) {
+          y = "There doesn't seem to be any synonyms available for this word!";
+        }
+
+        for (i in hey[1]) {
+          y += hey[1][i] + "\n";
+        }
+        synonyms = y;
+        console.log("Definitions: " + definitions);
+        console.log("Examples: " + examples);
+        console.log("Antonyms: " + antonyms);
+        console.log("Synonyms: " + synonyms);
+        present_data();
         
+      })
+  }
+}
 
-    console.log(output)
-    //console display all definitions
-*/
 
-}   
+function present_data() {
+  if (document.getElementById('Show Definitions').checked == false) {
+    definitions = "";
+  }
+  if (document.getElementById('Show Example').checked == false) {
+    examples = "";
+  }
+  if (document.getElementById('Show Synonyms').checked == false) {
+    synonyms = "";
+  }
+  if (document.getElementById('Show Antonyms').checked == false) {
+    antonyms = "";
+  }
+
+  document.getElementById("card_info_area").innerHTML = definitions + examples + synonyms + antonyms;
+}

@@ -8,7 +8,7 @@ $login_username = $_SESSION['username'];
 $current_path = $_SESSION['current_path'];
 echo $gen_card_id;
 
-// echo "login_username: ".$login_username."<br>";
+ echo "login_username: ".$login_username."<br>";
 // echo "current_path: ".$current_path."<br>";
 
 //import function library 
