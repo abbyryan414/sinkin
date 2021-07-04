@@ -11,56 +11,43 @@
 
 <h1>sign up</h1>
 <form method="post">
-    <input name="user_name" placeholder="username:" type="text">
-    <input name="password" placeholder="password:" type="text">
-    <button name="confirm-btn">confirm</button>
+    <input name="user_name"id="user_name" placeholder="username:" type="text">
+    <input name="password"id="password" placeholder="password:" type="text">
+    <button onclick="signup_clicked()">confirm</button>
 </form>
 <button onclick="location.href='login.php'">Back to login page</button>
+<?php
+require_once("phpFiles/db_handler.php");?>
+
+<script>
+  
+    function signup_clicked() {
+      var user_name = document.getElementById('user_name').value;
+      var password = document.getElementById('password').value;
+    $.ajax({
+      url: 'phpFiles/signup_clicked.php',
+      method: 'POST',
+      dataType: 'text',
+      data: {
+        user_name:user_name,
+        password:password
+      }  
+                   
+    }).done(function(returnedData){
+        console.log(returnedData);
+        window.alert(returnedData);
+        
+        
+        if (returnedData == "success"){
+          window.location.href = "login.php" ;
+        }
+
+
+        
+    })
+    
+  }
+</script>
 </body>
 </html>
 
-<?php
-if(array_key_exists('confirm-btn', $_POST)) { 
-
-  require_once("phpFiles/db_handler.php");
-    
-  $user_name=$_POST['user_name'];
-  $password=$_POST['password'];
-    
-    
-  $value = "SELECT* FROM users WHERE username= '$user_name'";
-  $result = $conn->query($value);
-    
-
-  
-  if (preg_match("(/)","$user_name")){
-    echo "username cannot include / ";
-    }elseif (strlen($user_name) > 0 && strlen(trim($user_name)) == 0){
-        //check for space
-        echo"username cannot be blank";
-    }elseif (preg_match("(^[NULL]{0}$)","$user_name")){
-        //check for blank
-        echo"username cannot be blank";
-    }elseif(strlen($password) > 0 && strlen(trim($password)) == 0){
-            //check for space
-            echo"password cannot be blank";
-    }elseif (preg_match("(^[NULL]{0}$)","$password")){
-            //check for blank
-            echo"password cannot be blank";
-    }elseif($result->num_rows > 0){
-          echo"this username alreadyn exists";
-          //location.reload();
-    }else{
-      $sql = "INSERT INTO users (username,userpassword)
-      VALUES ('$user_name','$password')";
-      if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('signup success')</script>";
-        } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    }
-  }
-  
-            
-
-?>
