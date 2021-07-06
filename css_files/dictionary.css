@@ -35,7 +35,7 @@ h2, h3 {
   flex-direction: row;
 }
 
-#search-div {
+#search-div, #study_div {
   position: relative;
   top: 0px;
   bottom: 0px;
@@ -47,6 +47,14 @@ h2, h3 {
   justify-content: space-evenly;
   align-items: center;
 }
+
+#study_div {
+  height: calc(100% - 75px);
+  margin-top: 0px;
+  width: 100%;
+}
+
+
 
 .checkbox-div {
   margin-top: 10px;
@@ -90,7 +98,7 @@ h4 {
   margin-bottom: 10px;
 }
 
-#deck_or_card_title_area {
+#deck_or_card_title_area, #card_title_area2 {
   height: 50px;
   width: 100%;
   text-align: center;
@@ -99,10 +107,14 @@ h4 {
   padding-bottom: 10px;
 }
 
-#card_info_area {
+#card_info_area, #card_info_area2 {
   height: 150px;
   width: 100%;
   padding: 15px;
+}
+
+#card_info_area2, #card_title_area2 {
+  width: 50%;
 }
 
 
@@ -118,7 +130,8 @@ h4 {
   height: 50px;
 }
 
-#return_btn {
+#return_btn, #wrong_btn, #correct_btn, #show_answer_btn {
   width: 200px;
   height: 50px;
 }
+

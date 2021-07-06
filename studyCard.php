@@ -7,9 +7,13 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
   crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css_files/dictionary.css">
 
 </head>
 <body>
+  <div id="logo-div">
+    <img id="logo" src="images/logo.png" alt="">
+  </div>
 
 <?php 
 
@@ -17,7 +21,7 @@ session_start();
 //update local time
 require("phpFiles/functions_library.php");
 $local_time = getLocalTime($_SESSION['gmt_int']);
-echo "Local Time: ".$local_time."<br>";
+// echo "Local Time: ".$local_time."";
 
 
 $username = $_SESSION['username'];
@@ -34,8 +38,8 @@ $study_date = "";
 // and would throw error is $id is null, so we must give it some value
 $id = "no id";
 
-echo "Username: ".$username.", ";
-echo "Current Path: ".$current_path."<br>";
+// echo "Username: ".$username.", ";
+// echo "Current Path: ".$current_path."";
 
 
 require_once("phpFiles/db_handler.php");
@@ -120,12 +124,12 @@ if (!is_null($result)) {
       $last_rep2 = $row['last_rep'];
       $created_date = $row['created_date'];
       $study_date = $row['study_date'];
-      // echo "<br>Card Title: ".$card_title."<br>".
-      // "Card Info: ".$card_info."<br>".
-      // "Reps(No. of times you viewed the card): ".$reps2."<br>".
-      // "Last_Rep: ".$last_rep2."<br>".
-      // "Created Date: ".$created_date."<br>".
-      // "Study Date: ".$study_date."<br>"."<br>";
+      // echo "Card Title: ".$card_title."".
+      // "Card Info: ".$card_info."".
+      // "Reps(No. of times you viewed the card): ".$reps2."".
+      // "Last_Rep: ".$last_rep2."".
+      // "Created Date: ".$created_date."".
+      // "Study Date: ".$study_date.""."";
 
       $reps = $row['reps'];
       $last_rep = $row['last_rep'];
@@ -141,7 +145,7 @@ if (!is_null($result)) {
 
 
 ?>
-<br>
+
 
 <script>
   function hide_wrong_and_correct_btn() {
@@ -152,38 +156,35 @@ if (!is_null($result)) {
   
   }
 </script>
-<label for="">Card Title: </label>
-<textarea name="card_title_area" id="card_title_area" cols="20" rows="3">
-<?php echo $card_title;?>
-</textarea>
 
-<br><label for="">Card Info: </label>
-<textarea name="card_info_area" id="card_info_area" cols="20" rows="3">
-<?php echo $card_info;?>
-</textarea>
-<br><label for="">Reps: </label>
-<textarea name="reps_area" id="reps_area" cols="20" rows="3">
-<?php echo $reps2;?>
-</textarea>
-<br><label for="">Last Rep: </label>
-<textarea name="last_rep_area" id="last_rep_area" cols="20" rows="3">
-<?php echo $last_rep2;?>
-</textarea>
-<br><label for="">Created Date: </label>
-<textarea name="created_date_area" id="created_date_area" cols="20" rows="3">
-<?php echo $created_date;?>
-</textarea>
-<br><label for="">Study Date: </label>
-<textarea name="study_date_area" id="study_date_area" cols="20" rows="3">
-<?php echo $study_date;?>
-</textarea>
-<br>
+<div id="study_div">
 
-<button id="wrong_btn" onclick="to_new_study_date_php('false')">Again :(</button>
-<button style="white-space: pre-wrap;" id="correct_btn" onclick="to_new_study_date_php('true')">Got it :)</button>
+  <label for="">Card Title: </label>
+  <textarea class="textarea" name="card_title_area2" id="card_title_area2" cols="20" rows="3">
+    <?php echo $card_title;?>
+  </textarea>
+
+  <label for="">Card Info: </label>
+  <textarea class="textarea" name="card_info_area2" id="card_info_area2" cols="20" rows="3">
+    <?php echo $card_info;?>
+  </textarea>
+  <label for="">Reps: <?php echo $reps2?></label>
+  <label for="">Last Rep: <?php echo $last_rep2;?></label>
+
+  <label for="">Created Date: <?php echo $created_date;?></label>
+
+  <label for="">Study Date: <?php echo $study_date;?></label>
+
+  
+
+  <button id="wrong_btn" onclick="to_new_study_date_php('false')">Again :(</button>
+  <button style="white-space: pre-wrap;" id="correct_btn" onclick="to_new_study_date_php('true')">Got it :)</button>
+  <button id="show_answer_btn" onclick="show_answer()">Show Answer</button>
+</div>
+
 
 <script>
-  document.getElementById('card_info_area').style.visibility = 'hidden';
+  document.getElementById('card_info_area2').style.visibility = 'hidden';
   document.getElementById('wrong_btn').style.display = 'none';
   document.getElementById('correct_btn').style.display = 'none';
 </script>
@@ -262,10 +263,10 @@ if (!is_null($result)) {
   }
 </script>
 
-  <button id="show_answer_btn" onclick="show_answer()">Show Answer</button>
+  
   <script>
     function show_answer() {
-      document.getElementById('card_info_area').style.visibility = 'visible';
+      document.getElementById('card_info_area2').style.visibility = 'visible';
       document.getElementById('wrong_btn').style.display = 'inline';
       document.getElementById('correct_btn').style.display = 'inline';
       document.getElementById('show_answer_btn').style.visibility = 'hidden';

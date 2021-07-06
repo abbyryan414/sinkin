@@ -18,16 +18,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>search for a word</title>
+    <link rel="stylesheet" href="css_files/add.css">
 </head>
 <body>
-    <h1>search a word:</h1>
-    <form method="post">
-        <input name="entered_word"id="entered_word" placeholder="word to be searched:" type="text">
-        <button onclick="search_clicked()">confirm</button>
-    </form>
-    <form action="index.php">
-                        <button>return to home page</button>
-    </form>
+    <div id="logo-div">
+      <img id="logo" src="images/logo.png" alt="">
+    </div>
+    <div id="big-div">
+
+    <div id="search-div2">
+      <h1>search a word:</h1>
+      <form id="add_deck_form" method="post">
+          <input name="entered_word" id="entered_word" placeholder="word to be searched:" type="text">
+          <button id="confirm_btn" onclick="search_clicked()">confirm</button>
+      </form>
+      <form action="index.php">
+        <button id="return_btn">return to home page</button>
+      </form>
+    </div>  
+    <div id="remaining-div">
 <?php
 $servername = "localhost";
         $username = "root";
@@ -54,15 +63,15 @@ if ($search_checker == "true" ){
         
 
         $number = $number + 1 ;
-        echo "<br>";
-        echo "$number.$gen_card";
-        echo "<br>";
-        echo "$gen_card_info";
+        echo "<div class='card_div'>";
+        echo "<label class='card_name_label'>$number. &nbsp $gen_card</label>";
+        echo "<label class='card_info_label'>$gen_card_info</label>";
         
         
         echo <<<EOT
-        <button onclick='card_clicked("$gen_card_id")'>edit this card</button>
+        <button class="edit_btn" onclick='card_clicked("$gen_card_id")'>edit this card</button>
         EOT;
+        echo "</div>";
     }
     $number = 0 ;
     $_SESSION['search_checker'] = "false" ;
@@ -96,6 +105,8 @@ if ($search_checker == "true" ){
     
   }
 </script>   
+    </div>
+  </div>
 </body>
 </html>
 
@@ -180,3 +191,4 @@ if ($search_checker == "true" ){
 }
             
 </script>
+

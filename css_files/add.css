@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+  /* background-color: blue; */
+  /* background-color: rgb(0, 164, 250); */
+  color: grey;
+  font-family: 'Montserrat', sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+h2, h3 {
+  display: inline;
+}
+
+#logo-div {
+  background-color: rgb(0, 164, 250);
+  width: 100%;
+  height: 75px;
+}
+
+#logo {
+  width: 100px;
+  top: 0px;
+  left: 0px;
+  margin-left: 10px;
+}
+
+#big-div {
+  position: absolute;
+  height: calc(100% - 75px);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+#search-div2, #search-div {
+  position: relative;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: calc(100% - 75px);
+  border: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#search-div2, #remaining-div {
+  position: relative;
+  bottom: 0px;
+  width: 50%;
+  max-height: 100% !important;
+  min-height: 100%;
+  /* padding: 10px; */
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+
+
+#deck_or_card_title, #entered_word {
+  height: 50px;
+  width: 100%;
+  font-size: 22px;
+  text-align: center;
+  
+}
+
+#add_deck_form {
+  width: 50%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#confirm_btn {
+  margin-top: 30px;
+  width: 100px;
+  height: 50px;
+}
+
+#return_btn, .edit_btn {
+  
+  width: 200px;
+  height: 50px;
+
+}
+
+.edit_btn {
+  position: relative;
+  top: 20px;
+  flex-shrink: 1;
+}
+
+.card_div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card_info_label, .card_name_label {
+  position: relative;
+  top: 10px;
+  text-align: center;
+}
+
+
+
