@@ -6,8 +6,8 @@
     $login_username = $_SESSION['username'];
     $current_path = $_SESSION['current_path'];
     
-    echo "login_username: ".$login_username."<br>";
-    echo "current_path: ".$current_path."<br>";
+    // echo "login_username: ".$login_username."<br>";
+    // echo "current_path: ".$current_path."<br>";
 
     //import function library 
     require_once("phpFiles/functions_library.php");
@@ -16,13 +16,13 @@
     //$_SESSION['gmt_int'] is the GMT value, for example HK has GMT value of +8
     // getLocalTime is a function that inputs GMT value and outputs local time
     $local_time = getLocalTime($_SESSION['gmt_int']);
-    echo "Local Time: ".$local_time."<br>";
+    // echo "Local Time: ".$local_time."<br>";
   
 
     //gets the selected_deck (eg:Deck2) from index.php, so that the default deck option 
     // will be the selected deck
     $selected_deck = $_SESSION['selected_deck'];
-    echo "selected_deck: ".$selected_deck;
+    // echo "selected_deck: ".$selected_deck;
 
 
   
@@ -45,9 +45,11 @@
 <body>
 
     <h1>Add a card:</h1>
-    <form method="post">
-        <textarea placeholder="Card Name: " name="deck_or_card_title_area" id="deck_or_card_title_area" cols="30" rows="10"></textarea>
-        <textarea placeholder="Card Info: " name="card_info_area" id="card_info_area" cols="30" rows="10"></textarea>
+    <form id="add_card_form" method="post">
+        <h4>Card Name:</h4>
+        <textarea name="deck_or_card_title_area" id="deck_or_card_title_area" cols="30" rows="10"></textarea><br>
+        <h4>Card Info:</h4>
+        <textarea name="card_info_area" id="card_info_area" cols="30" rows="10"></textarea><br>
         <select id="chosen_deck" name='chosen_deck'>
             <?php
               while($row=$result->fetch_assoc()){
@@ -78,10 +80,10 @@
         
        
   </form>
+    <button id="confirm_btn" onclick="confirm()">Confirm</button>
     <form action="index.php">
-      <button>return to home page</button>
+      <button id="return_btn">Return to Home Page</button>
     </form>
-    <button onclick="confirm()">confirm</button>
     <script>
     function confirm() {
       var deck_or_card_title = document.getElementById('deck_or_card_title_area').value;

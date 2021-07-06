@@ -14,8 +14,8 @@
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous"> -->
 </head>
 <body>
-
 <div class="container">
+  <img id="logo" src="images/logo.png" alt="">
   <h1 id="welcome-msg"></h1>
   <!-- <img id="mountain_png" src="images/mountain_png.png" alt=""> -->
   <img id="mountain_png" src="images/melody_tree.PNG" alt="">
@@ -27,12 +27,24 @@
 <!-- <div class="button_container"> -->
 
   <div class="upper_btn_container">
-    <button class="button" onclick="toDictionary()">Add Card</button>
-    <button class="button" onclick="addDeck()">To AddDeck</button>
+    <button class="button" onclick="toDictionary()">
+      <img class="icons" src="images/add_card.png" alt="">
+      <h4 class="button_labels">Add Card</h4>
+    </button>
+    <button class="button" onclick="addDeck()">
+      <img class="icons" src="images/add_deck.png" alt="">
+      <h4 class="button_labels">Add Deck</h4>
+    </button>
   </div>
   <div class="lower_btn_container">
-    <button class="button" onclick="studyCard()" id="study_card_btn">Study Cards in this Deck</button>
-    <button class="button" onclick="search()">Search For a Card</button>
+    <button class="button" onclick="studyCard()" id="study_card_btn">
+      <img class="icons" src="images/study_cards.png" alt="">
+      <h4 class="button_labels">Study Cards in this Deck</h4>
+    </button>
+    <button class="button" onclick="search()">
+      <img class="icons" src="images/search.png" alt="">
+      <h4 class="button_labels">Search For Cards</h4>
+    </button>
   </div>
   
   
@@ -40,7 +52,7 @@
   <button class="button" onclick="back_btn_clicked()" id="back_btn" name="back_btn"><i id="back_icon" class="fas fa-backward"></i> Back</button>
   
   <!-- <button class="delete_deck_btn" onclick="delete_btn_clicked()" id="delete_deck_btn" name="delete_deck_btn"></button> -->
-  <button class="delete_deck_btn" onclick="delete_btn_clicked()" id="delete_deck_btn" name="delete_deck_btn"><img src="css_files/delete.png" alt=""></button>
+  <button class="delete_deck_btn" onclick="delete_btn_clicked()" id="delete_deck_btn" name="delete_deck_btn"><img src="images/delete.png" alt=""></button>
   
   <form class="button_form" action="" method="POST">
     
@@ -50,7 +62,7 @@
 
 <!-- </div> -->
 
-
+<div id="echo_div">
 
 <?php
 
@@ -78,9 +90,6 @@
   }
 
 
-
-  echo "<br>Username: ".$username."<br>";
-  echo "Current Path: ".$current_path."<br>";
   echo "
   <script>
       document.getElementById('current_path_label').innerHTML ='Current Path: $current_path';
@@ -99,13 +108,13 @@
  
   // If there's decks in current path, turn them to buttons
   if ($result->num_rows > 0) {
-    echo "No of Results: ".($result->num_rows)."<br>";
+    echo "No of Decks: ".($result->num_rows)."<br>";
     while ($row = $result->fetch_assoc()) {
       $deck_name = $row['deck_or_card_title'];
 
       //auto generate button for decks
       echo <<<EOT
-      <button onclick='deck_clicked("$deck_name")'>$deck_name</button>
+      <button class="decks" onclick='deck_clicked("$deck_name")'><img id="deck_png" src="images/deck.png" alt=""><h1 class="deck_label">$deck_name</h1></button>
       EOT;
     }
   } else {
@@ -114,6 +123,9 @@
 
 
 ?>
+
+</div>
+
 
 <script>
 

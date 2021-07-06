@@ -5,8 +5,6 @@ var examples = "";
 var antonyms = "";
 var synonyms = "";
 function WordSearch() {
-  var p = document.getElementById("example_area");
-  p.style.display = "none";
   leword = document.getElementById('searchword').value
   document.getElementById("deck_or_card_title_area").innerHTML = leword;
   if (document.getElementById('Show Definitions').checked == false) {
@@ -179,5 +177,5 @@ function present_data() {
     antonyms = "";
   }
 
-  document.getElementById("card_info_area").innerHTML = definitions + examples + synonyms + antonyms;
+  document.getElementById("card_info_area").value = definitions + examples + synonyms + antonyms;
 }

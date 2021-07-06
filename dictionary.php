@@ -4,34 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dictionary!</title>
-    
+    <link rel="stylesheet" href="css_files/dictionary.css">
     <script src="Js/script.js"></script>
 </head>
 <body>
-    <div id="output"></div>
-    <form name="SearchforWord">
-    </form>
+  <div id="logo-div">
+    <img id="logo" src="images/logo.png" alt="">
+  </div>
+  <div id="container-div">
+    <div id="search-div">
+      <h2 id="search_label">Search a Word!</h2>
+      <input type="text" id="searchword" name="searchword"><br>
+      <button id="submit_button" onclick="WordSearch()">Submit</button>
 
-    <label for="wordstosearch">Search a word!:</label><br>
-    <input type="text" id="searchword" name="searchword"><br>
-    <button onclick="WordSearch()">Submit</button>
-    Show Definitions:
-    <input type="checkbox" id="Show Definitions" class="check">
-    Show Examples:
-    <input type="checkbox" id="Show Example" class="check">
-    Show Synonyms:
-    <input type="checkbox" id="Show Synonyms" class="check">
-    Show Antonyms:
-    <input type="checkbox" id="Show Antonyms" class="check">
-    <h5 id="definition_area"></h5>
-    <ol id="example_area"></ol>
-    <ol id="definition_list"></ol>
+      <div class="checkbox-div">
+        <h3>Show Definitions:&nbsp</h3>
+        <input type="checkbox" id="Show Definitions" class="check">
+      </div>
+      <div class="checkbox-div">
+        <h3>Show Examples: &nbsp</h3>
+        <input type="checkbox" id="Show Example" class="check">
+      </div>
+      <div class="checkbox-div">
+        <h3>Show Synonyms: &nbsp</h3>
+        <input type="checkbox" id="Show Synonyms" class="check">
+      </div>
+      <div class="checkbox-div">
+        <h3>Show Antonyms: &nbsp</h3>
+        <input type="checkbox" id="Show Antonyms" class="check">
+      </div>
+
+    </div>
+  
+
+  
+
+
+    <div id="add_card_section">
+      <?php 
+        require("addcard.php");
+      ?>
+    </div>
+    
+  </div>
 
 </body>
 </html>
 
-<?php 
-  require("addcard.php");
-?>
+
 
 
