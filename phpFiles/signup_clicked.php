@@ -34,7 +34,11 @@
     }else{
       $sql = "INSERT INTO users (username,userpassword)
       VALUES ('$user_name','$password')";
-       echo"success";
+      if ($conn->query($sql) === TRUE) {
+      echo "<script>alert('signup success')</script>";
+      } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+      }
     }
   
     
