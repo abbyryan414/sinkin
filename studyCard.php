@@ -14,6 +14,17 @@
   <div id="logo-div">
     <img id="logo" src="images/logo.png" alt="">
   </div>
+  <div id="chill_text_div">
+    <h1 id="chill_text">Congrats! No more cards to study for today. Time to chill :)</h1>
+  </div>
+  
+
+<script>
+  var x = document.getElementById("chill_text");
+  x.style.display = "none";
+  
+    
+</script>
 
 <?php 
 
@@ -100,7 +111,13 @@ if ($result->num_rows <= 0) {
           $result = query_and_fetch_result($conn, $sql, $username);
 
           if ($result->num_rows <= 0) {
-            echo "Congrats! No more cards to study for today. Time to chill :)";
+            echo "<script>document.getElementById('chill_text').style.display = 'inline';
+            $(document).ready(function(){
+              var y = document.getElementById('study_div');
+              y.style.display = 'none';
+            }) 
+            console.log('show');</script>";
+      
           }
         }
       }
@@ -145,8 +162,6 @@ if (!is_null($result)) {
 
 
 ?>
-
-
 <script>
   function hide_wrong_and_correct_btn() {
     var x = document.getElementById("wrong_btn");
@@ -156,30 +171,25 @@ if (!is_null($result)) {
   
   }
 </script>
-
 <div id="study_div">
 
-  <label for="">Card Title: </label>
-  <textarea class="textarea" name="card_title_area2" id="card_title_area2" cols="20" rows="3">
-    <?php echo $card_title;?>
-  </textarea>
+    <label for="">Card Title: </label>
+    <textarea class="textarea" name="card_title_area2" id="card_title_area2" cols="20" rows="3"><?php echo $card_title;?></textarea>
 
-  <label for="">Card Info: </label>
-  <textarea class="textarea" name="card_info_area2" id="card_info_area2" cols="20" rows="3">
-    <?php echo $card_info;?>
-  </textarea>
-  <label for="">Reps: <?php echo $reps2?></label>
-  <label for="">Last Rep: <?php echo $last_rep2;?></label>
+    <label for="">Card Info: </label>
+    <textarea class="textarea" name="card_info_area2" id="card_info_area2" cols="20" rows="3"><?php echo $card_info;?></textarea>
+    <label for="">Reps: <?php echo $reps2?></label>
+    <label for="">Last Rep: <?php echo $last_rep2;?></label>
 
-  <label for="">Created Date: <?php echo $created_date;?></label>
+    <label for="">Created Date: <?php echo $created_date;?></label>
 
-  <label for="">Study Date: <?php echo $study_date;?></label>
+    <label for="">Study Date: <?php echo $study_date;?></label>
 
-  
+    
 
-  <button id="wrong_btn" onclick="to_new_study_date_php('false')">Again :(</button>
-  <button style="white-space: pre-wrap;" id="correct_btn" onclick="to_new_study_date_php('true')">Got it :)</button>
-  <button id="show_answer_btn" onclick="show_answer()">Show Answer</button>
+    <button id="wrong_btn" onclick="to_new_study_date_php('false')">Again :(</button>
+    <button style="white-space: pre-wrap;" id="correct_btn" onclick="to_new_study_date_php('true')">Got it :)</button>
+    <button id="show_answer_btn" onclick="show_answer()">Show Answer</button>
 </div>
 
 

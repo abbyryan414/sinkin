@@ -6,9 +6,9 @@ $gen_card_id = (int)$_SESSION['gen_card_id'];
 //Get username and currentpath(before clicking addcard.php)
 $login_username = $_SESSION['username'];
 $current_path = $_SESSION['current_path'];
-echo $gen_card_id;
+// echo $gen_card_id;
 
- echo "login_username: ".$login_username."<br>";
+//  echo "login_username: ".$login_username."<br>";
 // echo "current_path: ".$current_path."<br>";
 
 //import function library 
@@ -23,7 +23,7 @@ require_once("phpFiles/db_handler.php");
 $sql = "SELECT * FROM users_cards WHERE username= '$login_username' AND id = $gen_card_id";
 $result = $conn->query($sql);
 $row=$result->fetch_assoc();
-echo $row['deck_or_card_title'];
+// echo $row['deck_or_card_title'];
 
 ?>
 

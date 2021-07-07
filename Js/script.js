@@ -6,7 +6,7 @@ var antonyms = "";
 var synonyms = "";
 function WordSearch() {
   leword = document.getElementById('searchword').value
-  document.getElementById("deck_or_card_title_area").innerHTML = leword;
+  document.getElementById("deck_or_card_title_area").value = leword;
   if (document.getElementById('Show Definitions').checked == false) {
     get_examples();
   } else {

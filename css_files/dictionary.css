@@ -135,3 +135,14 @@ h4 {
   height: 50px;
 }
 
+#chill_text_div {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 75px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#chill_text {
+  text-align: center;
+}
