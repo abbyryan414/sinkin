@@ -7,35 +7,42 @@
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
   crossorigin="anonymous"></script>
 <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
-<link rel="stylesheet" href="css_files/login.css">
+<link rel="stylesheet" href="css_files/signup.css">
 <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
 </head>
 <body>
 <div id="logo-div">
     <img id="logo" src="images/logob.png" alt="">
+</div>
+
+<div id=intro-div>
+  <button id="intro" onclick="intro_clicked()">Guide me!</button> 
+  <div id= "sign-div">
+    <h2 id="sign_label" data-intro="Welcome to Sinkin! This is the login page.">Login!</h2>
   </div>
-  <div id=intro-div>
-    <button id="intro" onclick="intro_clicked()">Guide me!</button> 
+
+  <div id = "bar-div">
+    <form method="post"> 
+    <div id = "user-div">
+        <input name="user_name" id="user_name"placeholder="username:" type="text" data-intro="Here is where you put your Username...">
+    </div>
+
+    <div id = "pass-div">
+        <input name="password" id="password"placeholder="password:" type="text" data-intro="And here is for your password.">
+    </div>
+  </div>
+  <div id=signB-div>
+      <button id=signB onclick="login_clicked()">login!</button> 
+  </div>
+    </form>
 </div>
-<div id= "login-div">
-<h2 id="login_label" data-intro="Welcome to Sinkin! This is the login page.">Login!</h2>
-</div>
-<div id = "bar-div">
-  <form method="post"> 
-<div id = "user-div">
-    <input name="user_name" id="user_name"placeholder="username:" type="text" data-intro="Here is where you put your Username...">
-</div>
-<div id = "pass-div">
-    <input name="password" id="password"placeholder="password:" type="text" data-intro="And here is for your password.">
-</div>
-</div>
-<div id = href-div>
+
+<div id = btl-div>
     <a href="signup.php" data-intro="If you don't have an account, you can register here!">Don't have an account?</a>
 </div>
-<div id=loginB-div>
-    <button id="loginB" onclick="login_clicked()">login!</button> 
-</div>
-</form>
+
+
+
 <?php
 require_once("phpFiles/db_handler.php");?>
 <script>
