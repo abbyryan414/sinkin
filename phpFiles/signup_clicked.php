@@ -34,11 +34,11 @@
     }else{
       $sql = "INSERT INTO users (username,userpassword)
       VALUES ('$user_name','$password')";
-      if ($conn->query($sql) === TRUE) {
-      echo "success";
-      } else {
-      echo "Error: " . $sql . "<br>" . $conn->error;
-      }
+    if ($conn->query($sql) === TRUE) {  
+    echo "success";
+    } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+    }
     }
   
     
