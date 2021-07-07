@@ -35,23 +35,36 @@ echo $row['deck_or_card_title'];
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
 integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
 crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css_files/add.css">
 </head>
 <body>
+  <div id="logo-div">
+    <img id="logo" src="images/logo.png" alt="">
+  </div>
+  <div id="search-div">
+    <h1>Edit this card:</h1>
+    <form id="add_deck_form" method="post">
 
-<h1>Edit this card:</h1>
-<form method="post">
-    <textarea placeholder="Card Name: " name="deck_or_card_title_area" id="deck_or_card_title_area" cols="30" rows="10"><?php echo $row['deck_or_card_title'] ?></textarea> 
-    <textarea placeholder="Card Info: " name="card_info_area" id="card_info_area" cols="30" rows="10"><?php echo $row['card_info'] ?></textarea>
+        <textarea placeholder="Card Name: " name="deck_or_card_title_area" id="deck_or_card_title_area"  class="textarea_class" cols="30" rows="10"><?php echo $row['deck_or_card_title'] ?></textarea> 
+
+        <textarea placeholder="Card Info: " name="card_info_area" id="card_info_area" class="textarea_class textarea_class2" cols="30" rows="10"><?php echo $row['card_info'] ?></textarea>
     
     
     
    
-</form>
-<form action="index.php">
-  <button>return to home page</button>
-</form>
-<button onclick="confirm()">update card</button>
-<button onclick="deletec()">delete card</button>
+    </form>
+    <div>
+      <button class="normal_btn" onclick="confirm()">update card</button>
+      <button class="normal_btn" onclick="deletec()">delete card</button>
+    </div>
+    
+    <form action="index.php">
+      <button class="normal_btn">return to home page</button>
+    </form>
+
+  </div>
+
+
 <script>
 function confirm() {
   var deck_or_card_title = document.getElementById('deck_or_card_title_area').value;

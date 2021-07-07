@@ -63,13 +63,21 @@ h2, h3 {
 
 
 
-#deck_or_card_title, #entered_word {
+#deck_or_card_title, #entered_word, .textarea_class{
   height: 50px;
   width: 100%;
   font-size: 22px;
   text-align: center;
+  padding: 10px;
   
 }
+
+.textarea_class2 {
+  margin-top: 20px;
+  height: 150px;
+  font-size: 16px;
+}
+
 
 #add_deck_form {
   width: 50%;
@@ -80,10 +88,11 @@ h2, h3 {
   justify-content: center;
 }
 
-#confirm_btn {
+#confirm_btn, .normal_btn {
   margin-top: 30px;
   width: 100px;
   height: 50px;
+  margin-right: 20px;
 }
 
 #return_btn, .edit_btn {

@@ -22,7 +22,7 @@
   </div>
 
   <div id = "bar-div">
-    <form method="post">
+    
     <div id = "user-div">
         <input name="user_name"id="user_name" data-intro="As before, this is where your username goes" placeholder="username:" type="text">
     </div>
@@ -35,7 +35,7 @@
   <div id=signB-div>
     <button id=signB data-intro="To finish, click this button to submit and register!" onclick="signup_clicked()">Sign&nbsp;In!</button>
   </div>
-    </form>
+   
 </div>
 <div id=btl-div>
   <button id=btlB data-intro="You can also click this button to go back to the login page!" onclick="location.href='login.php'">Back to login page</button>

@@ -22,7 +22,7 @@
   </div>
 
   <div id = "bar-div">
-    <form method="post"> 
+    
     <div id = "user-div">
         <input name="user_name" id="user_name"placeholder="username:" type="text" data-intro="Here is where you put your Username...">
     </div>
@@ -34,7 +34,7 @@
   <div id=signB-div>
       <button id=signB onclick="login_clicked()">login!</button> 
   </div>
-    </form>
+    
 </div>
 
 <div id = btl-div>
@@ -61,11 +61,12 @@ require_once("phpFiles/db_handler.php");?>
                    
     }).done(function(returnedData){
         console.log(returnedData);
-        window.alert(returnedData);
-        
         
         if (returnedData == "success"){
+          alert(returnedData);
           window.location.href = "index.php" ;
+        } else {
+          alert("returned data is not 'success'");
         }
     })
     
