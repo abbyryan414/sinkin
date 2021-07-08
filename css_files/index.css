@@ -167,6 +167,12 @@
   font-size: 20px;
 }
 
+#logout_btn:hover {
+  border: none;
+  background-color: white;
+  color:rgb(0, 164, 250);
+}
+
 #echo_div {
   position: absolute;
   background-color: transparent;
@@ -185,6 +191,9 @@
   margin-top: 10px;
   border: none;
   background-color: transparent;
+}
+.decks:hover > .deck_label{
+  color: rgb(34, 34, 34);
 }
 .decks, #deck_png {
   height: 100px;
