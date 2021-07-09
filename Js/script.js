@@ -40,7 +40,8 @@ function WordSearch() {
         console.log(bruh);
         var x = "";
         for (i in data.results) {
-          x += bruh[1][i].definition + "\n";
+          number = parseInt(i) + 1;
+          x += number.toString() + ") " + bruh[1][i].definition + "\r\n";
         }
         definitions = x;
         get_examples();
@@ -79,7 +80,7 @@ function get_examples() {
         }
         else {
           for (i in hey[1]) {
-            y += hey[1][i] + "\n";
+            y += "e.g. " + hey[1][i] + "\n";
           }
         }
         examples = y;

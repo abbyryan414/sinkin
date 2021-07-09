@@ -108,6 +108,7 @@ h4 {
 }
 
 #card_info_area, #card_info_area2 {
+  /* text-align: center; */
   height: 150px;
   width: 100%;
   padding: 15px;
