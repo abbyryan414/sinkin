@@ -80,7 +80,8 @@ function get_examples() {
         }
         else {
           for (i in hey[1]) {
-            y += "e.g. " + hey[1][i] + "\n";
+            number = parseInt(i) + 1;
+            y += number.toString() + ") " + hey[1][i] + "\n";
           }
         }
         examples = y;
@@ -178,5 +179,5 @@ function present_data() {
     antonyms = "";
   }
 
-  document.getElementById("card_info_area").value = definitions + examples + synonyms + antonyms;
+  document.getElementById("card_info_area").value = "Definition: \r\n" + definitions + "\r\nExamples: \r\n"+ examples + synonyms + antonyms;
 }
