@@ -18,7 +18,7 @@
     //echo $is_correct;
 
     if ($is_correct == "true") {
-      echo "correct";
+      // s
       //If first try
       if ($reps == 0) {
         //Adds 2(skips rep 1) if correct on first try
@@ -41,7 +41,7 @@
 
 
     } else if ($is_correct == "false") {
-      echo "false";
+      // echo "false";
       //Firstly, the last rep value will be deducted by 3, that's the rep the 
       //user will continue on with the card if he gets it right afterwards
       $last_rep = $reps - 3;
@@ -59,9 +59,9 @@
     }
     //get new study_date
     $new_study_date = new_study_date($reps);
-    echo $reps;
+    // echo $reps;
     $new_study_date_string = $new_study_date->format('Y-m-d H:i:s');
-    echo "<br>New Study Date: ".$new_study_date_string;
+    // echo "<br>New Study Date: ".$new_study_date_string;
 
     require("db_handler.php");
     
