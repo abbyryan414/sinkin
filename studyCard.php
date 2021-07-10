@@ -190,6 +190,9 @@ if (!is_null($result)) {
     <button id="wrong_btn" onclick="to_new_study_date_php('false')">Again :(</button>
     <button style="white-space: pre-wrap;" id="correct_btn" onclick="to_new_study_date_php('true')">Got it :)</button>
     <button id="show_answer_btn" onclick="show_answer()">Show Answer</button>
+    <form action="index.php">
+      <button id="return_btn">Return to Home Page</button>
+    </form>
 </div>
 
 

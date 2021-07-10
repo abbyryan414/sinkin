@@ -59,7 +59,7 @@
   <!-- <button class="delete_deck_btn" onclick="delete_btn_clicked()" id="delete_deck_btn" name="delete_deck_btn"></button> -->
   <button class="delete_deck_btn" onclick="delete_btn_clicked()" id="delete_deck_btn" name="delete_deck_btn"><img src="images/delete.png" alt=""></button>
   
-  <form class="button_form" action="" method="POST">
+  <form class="button_form" action="login.php" method="POST">
     
     <button type="submit" id="logout_btn" name="logout_btn">Log out</button>
   </form>
