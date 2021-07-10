@@ -68,7 +68,26 @@
 
   session_start();
 
-
+  function getLastDir($current_dir) {
+    //remove the last character of the string
+    $current_path_trimmed = substr($current_dir, 0, -1);
+    
+    //Reverse the order of the string
+    $current_path_reversed = "";
+    $len = strlen($current_path_trimmed);
+    for($i=$len; $i > 0; $i--){
+      $current_path_reversed .= $current_path_trimmed[$i-1];
+    }
+    $out = strtok($current_path_reversed, '/');
+    //Reverse the order of the string
+    $current_path_reversed = "";
+    $len = strlen($out);
+    for($i=$len; $i > 0; $i--){
+      $current_path_reversed .= $out[$i-1];
+    }
+    return $current_path_reversed;
+  }
+  
 
   //set default username 
   //$username = "ryan1";
@@ -79,8 +98,7 @@
     $current_path = $_SESSION['current_path'];
 
   }
-
- 
+  $pooth;
   $username = $_SESSION['username'] ;
   $current_path = $_SESSION['current_path'] ;
 
@@ -88,11 +106,19 @@
     header("Location:login.php");
 
   }
+  if (substr_count($current_path,"/")>1){
+    $pooth = getLastDir($current_path);
+
+  }
+  else if (substr_count($current_path,"/")==1){
+    $pooth = "Home";
+  }
+
 
 
   echo "
   <script>
-      document.getElementById('current_path_label').innerHTML ='Current Path: $current_path';
+      document.getElementById('current_path_label').innerHTML ='Current Path: $pooth';
   </script>";
 
   require_once("phpFiles/db_handler.php");
