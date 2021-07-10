@@ -179,5 +179,5 @@ function present_data() {
     antonyms = "";
   }
 
-  document.getElementById("card_info_area").value = "Definition: \r\n" + definitions + "\r\nExamples: \r\n"+ examples + "\r\nSynonyms: \r\n"+synonyms + "\r\nAntonyms: \r\n"+antonyms;
+  document.getElementById("card_info_area").value = definitions + examples + synonyms + antonyms;
 }
