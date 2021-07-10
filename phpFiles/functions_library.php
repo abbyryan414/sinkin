@@ -44,12 +44,7 @@ function getLastDir($current_dir) {
   for($i=$len; $i > 0; $i--){
     $current_path_reversed .= $current_path_trimmed[$i-1];
   }
-
- 
-
   $out = strtok($current_path_reversed, '/');
-
-
   //Reverse the order of the string
   $current_path_reversed = "";
   $len = strlen($out);
