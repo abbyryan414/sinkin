@@ -43,7 +43,7 @@ function WordSearch() {
           number = parseInt(i) + 1;
           x += number.toString() + ") " + bruh[1][i].definition + "\r\n";
         }
-        definitions = x;
+        definitions = "Definition: \r\n" + x + "\r\n";
         get_examples();
       })
       .catch((error) => {
@@ -84,7 +84,7 @@ function get_examples() {
             y += number.toString() + ") " + hey[1][i] + "\n";
           }
         }
-        examples = y;
+        examples = "Examples: \r\n" + y + "\r\n";
         get_antonyms();
       })
   }
@@ -119,7 +119,7 @@ function get_antonyms() {
           y += hey[1][i] + "\n";
           console.log(y);
         }
-        antonyms = y;
+        antonyms = "Antonyms: \r\n" + y + "\r\n";
         get_synonyms();
       })
   }
@@ -153,7 +153,7 @@ function get_synonyms() {
         for (i in hey[1]) {
           y += hey[1][i] + "\n";
         }
-        synonyms = y;
+        synonyms = "Synonyms: \r\n" + y + "\r\n";
         console.log("Definitions: " + definitions);
         console.log("Examples: " + examples);
         console.log("Antonyms: " + antonyms);
@@ -179,5 +179,5 @@ function present_data() {
     antonyms = "";
   }
 
-  document.getElementById("card_info_area").value = "Definition: \r\n" + definitions + "\r\nExamples: \r\n"+ examples + synonyms + antonyms;
+  document.getElementById("card_info_area").value = definitions + examples + synonyms + antonyms;
 }
