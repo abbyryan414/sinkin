@@ -187,6 +187,24 @@
   border: 3px solid grey;
   border-radius: 10px;
 }
+#intro-div{
+  padding-left: 5%;
+  padding-right: 45%;
+}
+
+#intro{
+  width: 10%;
+  height: 5%;
+  color:rgb(34, 34, 34);
+  background-color: rgb(255, 255, 255);
+  border:2px solid rgb(38, 202, 202);
+}
+#intro:hover{
+  color: rgb(38, 202, 202);
+}
+.introjs-tooltiptext{
+  color: black;
+}
 .decks {
   margin-top: 10px;
   border: none;
@@ -208,3 +226,4 @@
   bottom: 70px;
   color: grey;
 }
+

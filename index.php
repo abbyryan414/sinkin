@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
   <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous"> -->
+  <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+  <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -25,24 +27,27 @@
 <div class="container2">
 
 <!-- <div class="button_container"> -->
+<div id=intro-div>
+  <button id="intro" onclick="intro_clicked()">Guide me!</button> 
+  </div>
 
   <div class="upper_btn_container">
-    <button class="button" onclick="toDictionary()">
+    <button class="button" onclick="toDictionary()" data-intro="This is the Dictionary. You can search up words via our API and add them to the deck.">
       <img class="icons" src="images/add_card.png" alt="">
       <h4 class="button_labels">Add Card</h4>
     </button>
-    <button class="button" onclick="addDeck()">
+    <button class="button" onclick="addDeck()"  data-intro="This is where you create a new deck."> 
       <img class="icons" src="images/add_deck.png" alt="">
       <h4 class="button_labels">Add Deck</h4>
     </button>
   </div>
   <div class="lower_btn_container">
-    <button class="button" onclick="studyCard()" id="study_card_btn">
+    <button class="button" onclick="studyCard()" id="study_card_btn" data-intro="This is where you can practice your proficiency with the decks you made.">
       <img class="icons" src="images/study_cards.png" alt="">
       <h4 class="button_labels">Study Cards in this Deck</h4>
     </button>
-    <button class="button" onclick="search()">
-      <img class="icons" src="images/search.png" alt="">
+    <button class="button" onclick="search()" data-intro="This is where you can search for cards in your deck.">
+      <img class="icons" src="images/search.png" alt="" >
       <h4 class="button_labels">Search For Cards</h4>
     </button>
   </div>
@@ -154,6 +159,11 @@
 
 
 <script>
+
+function intro_clicked(){
+      introJs().start();
+    }
+
 
 //The function returns the time zone offset, 
 //for example HK is GMT +8,
